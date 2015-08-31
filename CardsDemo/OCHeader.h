@@ -7,7 +7,8 @@
 #import "JKpopMenuView.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "QiniuUtiloc.h"
-#ifndef meizi_OC_Header_h
+#import "MJRefresh.h"
+#ifndef meizi_OC_Header_h®
 #define meizi_OC_Header_h
 
 #endif

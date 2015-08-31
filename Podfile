@@ -4,4 +4,4 @@ use_frameworks!
 pod 'FXBlurView', '~> 1.6.3'
 pod 'Alamofire', '~> 1.3'
 pod 'SDWebImage', '~>3.7'
-pod 'MJRefresh'
+pod 'SwiftyJSON', '~> 2.2.1'
