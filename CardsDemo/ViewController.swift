@@ -8,16 +8,17 @@
 
 import UIKit
 import Alamofire
+import SwiftyJSON
 
 class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsContainerDataSource,JKPopMenuViewSelectDelegate{
-    
+    func loveBizhiUrl ( page:NSInteger)->String {return "http://api.lovebizhi.com/macos_v4.php?a=category&spdy=1&tid=3&order=hot&color_id=3&device=105&uuid=436e4ddc389027ba3aef863a27f6e6f9&mode=0&retina=0&client_id=1008&device_id=31547324&model_id=105&size_id=0&channel_id=70001&screen_width=1920&screen_height=1200&bizhi_width=800&bizhi_height=1200&version_code=19&language=zh-Hans&jailbreak=0&mac=&p=\(page)"}
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
     var swipeableView:MABCardsContainer!
-    var colorIndex = 0
+    var pagenum=0
     var itemArray:NSMutableArray=NSMutableArray()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +51,6 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
     
     
     func reload() {
-        self.colorIndex = 0
         self.swipeableView.discardAllSwipeableViews()
         self.swipeableView.loadNextSwipeableViewsIfNeeded(true)
         println(QiniuUtiloc.getXAPICloudAppKey())
@@ -66,23 +66,20 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
     func popMenuViewSelectIndex(index:NSInteger)
     {
         //NSLog(@"%s",__func__);
-     //  startItemDetilViewController()
+        //  startItemDetilViewController()
         startMyLoveViewController()
     }
-    func startMyLoveViewController()
+    func startItemDetilViewController()// 图片详情
     {
-     var storyboard=UIStoryboard(name: "Main", bundle: nil)
+        var storyboard=UIStoryboard(name: "Main", bundle: nil)
         var vc = storyboard.instantiateViewControllerWithIdentifier("StoryViewController") as! StoryViewController
-      //  self.navigationController?.pushViewController(vc, animated: true)
-     
         self.presentViewController(vc, animated: true,completion:nil);
-            
+        
         
     }
-    func startItemDetilViewController(){
+    func startMyLoveViewController(){// 我喜欢的 列表
         var storyboard=UIStoryboard(name: "Main", bundle: nil)
         var vc = storyboard.instantiateViewControllerWithIdentifier("MyLoveViewController") as! MyLoveViewController
-       // self.navigationController?.pushViewController(vc, animated: true)
         self.presentViewController(
             vc, animated: true, completion: {
                 println()
@@ -99,28 +96,10 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
         var jkpop=JKPopMenuView(items:array as [AnyObject])
         jkpop.delegate=self
         jkpop.show()
-       
+        
         
     }
-    //    - (IBAction)showPopMenu:(id)sender {
-    //
-    //NSMutableArray *array = [[NSMutableArray alloc]init];
-    //for (NSInteger i = 1; i < 7; i++) {
-    //NSString *string = [NSString stringWithFormat:@"icon%ld",i];
-    //JKPopMenuItem *item = [JKPopMenuItem itemWithTitle:string image:[UIImage imageNamed:string]];
-    //[array addObject:item];
-    // }
     
-    //JKPopMenuView *jkpop = [JKPopMenuView menuViewWithItems:array];
-    //jkpop.delegate = self;
-    //[jkpop show];
-    // }
-    
-    //#pragma mark App JKPopMenuViewSelectDelegate
-    //- (void)popMenuViewSelectIndex:(NSInteger)index
-    //{
-    
-    //}
     // MABCardsContainerDelegate
     func containerViewDidSwipeLeft(containerView:MABCardsContainer, UIView) {}
     func containerViewDidSwipeRight(containerView:MABCardsContainer, UIView) {}
@@ -130,39 +109,17 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
     
     // MABCardsContainerDataSource
     func nextCardViewForContainerView(containerView:MABCardsContainer) -> UIView! {
-    
+        
         if itemArray.count>0
         {
             
             var imageView=UIImageView(frame: CGRect(x: 0, y: 0, width:self.view.frame.width-40, height: self.view.frame.height-171))
             imageView.backgroundColor=UIColor.whiteColor()
-//            var temp=itemArray.objectAtIndex(0).valueForKey("title")as! NSString
-//            while (temp.containsString("性感"))&&(temp.containsString("诱惑"))
-//            {
-//                  itemArray.removeObjectAtIndex(0)
-//                temp=itemArray.objectAtIndex(0).valueForKey("picUrl")as! NSString
-//
-//            }
-            var urll=NSURL(string:itemArray.objectAtIndex(0).valueForKey("picUrl")as! String)
-            println(itemArray.objectAtIndex(0).valueForKey("title"))
-            //            imageView.setImageWithURL(urll!)
+            let item=itemArray.objectAtIndex(0) as! PicItem
             itemArray.removeObjectAtIndex(0)
-//            case ScaleToFill
-//            case ScaleAspectFit // contents scaled to fit with fixed aspect. remainder is transparent
-//            case ScaleAspectFill // contents scaled to fill with fixed aspect. some portion of content may be clipped.
-//            case Redraw // redraw on bounds change (calls -setNeedsDisplay)
-//            case Center // contents remain same size. positioned adjusted.
-//            case Top
-//            case Bottom
-//            case Left
-//            case Right
-//            case TopLeft
-//            case TopRight
-//            case BottomLeft
-//            case BottomRight
-
+            
             imageView.contentMode=UIViewContentMode.ScaleAspectFit
-            imageView.sd_setImageWithURL(urll, completed: { (image, err, _, _) -> Void in
+            imageView.sd_setImageWithURL(NSURL(string:item.identify), completed: { (image, err, _, _) -> Void in
                 println(image)
                 
                 if !(err==nil){
@@ -175,11 +132,29 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
             {
                 getPicList()
             }
+//                var shadowColor2 = UIColor(red: 0.209, green: 0.209, blue: 0.209, alpha: 1)
+//                var shadow = shadowColor2.colorWithAlphaComponent(0.73)
+//                var shadowOffset = CGSizeMake(3.1/2.0, -0.1/2.0);
+//                var shadowBlurRadius = 6.0 as CGFloat
+//                imageView.layer.shadowColor = shadow.CGColor
+//                imageView.layer.shadowOpacity = 0.73
+//                imageView.layer.shadowOffset = shadowOffset
+//                imageView.layer.shadowRadius = shadowBlurRadius
+//                imageView.layer.shouldRasterize = true
+//                
+//                imageView.layer.cornerRadius = 10
+//            var gesture=UIGestureRecognizer(target: self, action: Selector("startItemDetilViewController"))
+//            imageView.addGestureRecognizer(gesture)
             return imageView;
         }
         return nil;
     }
     func getPicList()
+    {
+        getLovebizhiList()
+        //        getPicListFApi()
+    }
+    func getPicListFApi()// piclist  from the api
     {
         
         let headers = [
@@ -189,19 +164,36 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
         let parameters = [
             "num": "40"
         ]
+        
         Alamofire.request(.GET, "http://apis.baidu.com/txapi/mvtp/meinv?num=40", headers: headers,parameters:parameters
-                )
-                .responseJSON { _, _, JSON, _ in
-                println(JSON)
+            )
+            .responseJSON { _, _, Json, _ in
+                println(Json)
+                
+                let json=JSON(Json!)
+                
                 for index in 0...38{
-               self.itemArray.addObject(JSON!.valueForKey("\(index)")!)
+                    let item=json["\(index)"]
+                    
+                    self.itemArray.addObject(PicItem(identifyorurl:item["picUrl"].string!, title:item["title"].string!, urlFrom:item["url"].string!, description:item["description"].string!))
                 }
                 self.reload()
-       
-            
-            
         }
         
+    }
+    
+    func getLovebizhiList(){
+        Alamofire.request(.GET, loveBizhiUrl(pagenum), headers: nil,parameters:nil
+            )
+            .responseJSON { _, _, jSON, _ in
+                let json=JSON(jSON!)
+                
+                for(index: String,subjson: JSON) in json["data"]{
+                    self.itemArray.addObject(PicItem(identifyorurl:subjson["image"]["original"].string! ))
+                }
+                self.reload()
+        }
+        pagenum++
     }
     
 }

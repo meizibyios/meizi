@@ -15,6 +15,7 @@
 		8E018DA61A2A3D9C00BFBC40 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E018DA41A2A3D9C00BFBC40 /* LaunchScreen.xib */; };
 		8E018DBD1A2A3DC100BFBC40 /* MABCardsContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E018DBB1A2A3DC100BFBC40 /* MABCardsContainer.swift */; };
 		8E018DBE1A2A3DC100BFBC40 /* MABCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E018DBC1A2A3DC100BFBC40 /* MABCardView.swift */; };
+		CD5421441B95A0AF0045E69B /* mylove.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD5421431B95A0AF0045E69B /* mylove.plist */; };
 		CD99F51B1B944494009F7917 /* MyLoveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99F51A1B944494009F7917 /* MyLoveViewController.swift */; };
 		CD99F52A1B9476A8009F7917 /* ParallaxHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = CD99F5231B9476A8009F7917 /* ParallaxHeaderView.m */; };
 		CD99F52B1B9476A8009F7917 /* StoryCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CD99F5251B9476A8009F7917 /* StoryCommentCell.m */; };
@@ -64,6 +65,8 @@
 		8E018DB11A2A3D9C00BFBC40 /* CardsDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsDemoTests.swift; sourceTree = "<group>"; };
 		8E018DBB1A2A3DC100BFBC40 /* MABCardsContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MABCardsContainer.swift; sourceTree = "<group>"; };
 		8E018DBC1A2A3DC100BFBC40 /* MABCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MABCardView.swift; sourceTree = "<group>"; };
+		CD54213E1B9586A20045E69B /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "Pods/../build/Debug-iphoneos/SwiftyJSON.framework"; sourceTree = "<group>"; };
+		CD5421431B95A0AF0045E69B /* mylove.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = mylove.plist; sourceTree = "<group>"; };
 		CD99F51A1B944494009F7917 /* MyLoveViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyLoveViewController.swift; sourceTree = "<group>"; };
 		CD99F51C1B9447E0009F7917 /* MJRefresh.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MJRefresh.framework; path = "Pods/../build/Debug-iphoneos/MJRefresh.framework"; sourceTree = "<group>"; };
 		CD99F5221B9476A8009F7917 /* ParallaxHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParallaxHeaderView.h; sourceTree = "<group>"; };
@@ -191,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				8E018D9A1A2A3D9C00BFBC40 /* Info.plist */,
+				CD5421431B95A0AF0045E69B /* mylove.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -377,6 +381,7 @@
 		EFFDCD4AD3F84E0358280B39 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CD54213E1B9586A20045E69B /* SwiftyJSON.framework */,
 				CD99F51C1B9447E0009F7917 /* MJRefresh.framework */,
 				CDD21F1F1B8E04EC00F0F6C0 /* SDWebImage.framework */,
 				CDD21F1A1B8DB7EE00F0F6C0 /* AFNetworking.framework */,
@@ -450,6 +455,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E018DA11A2A3D9C00BFBC40 /* Main.storyboard in Resources */,
+				CD5421441B95A0AF0045E69B /* mylove.plist in Resources */,
 				8E018DA61A2A3D9C00BFBC40 /* LaunchScreen.xib in Resources */,
 				CD99F56C1B947831009F7917 /* MJRefresh.bundle in Resources */,
 				8E018DA31A2A3D9C00BFBC40 /* Images.xcassets in Resources */,
