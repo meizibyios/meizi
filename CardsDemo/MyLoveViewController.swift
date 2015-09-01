@@ -15,7 +15,7 @@ class MyLoveViewController: UIViewController,UITableViewDataSource,UITableViewDe
     @IBOutlet weak var itemTableview: UITableView!
     
     override func viewDidLoad() {
-        self.viewDidLoad()
+        super.viewDidLoad()
         itemTableview.delegate=self
         itemTableview.dataSource=self
         itemTableview.header=MJRefreshNormalHeader(refreshingBlock: {

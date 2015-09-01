@@ -8,6 +8,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "QiniuUtiloc.h"
 #import "MJRefresh.h"
+#import "StoryViewController.h"
 #ifndef meizi_OC_Header_h®
 #define meizi_OC_Header_h
 

@@ -66,6 +66,28 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
     func popMenuViewSelectIndex(index:NSInteger)
     {
         //NSLog(@"%s",__func__);
+     //  startItemDetilViewController()
+        startMyLoveViewController()
+    }
+    func startMyLoveViewController()
+    {
+     var storyboard=UIStoryboard(name: "Main", bundle: nil)
+        var vc = storyboard.instantiateViewControllerWithIdentifier("StoryViewController") as! StoryViewController
+      //  self.navigationController?.pushViewController(vc, animated: true)
+     
+        self.presentViewController(vc, animated: true,completion:nil);
+            
+        
+    }
+    func startItemDetilViewController(){
+        var storyboard=UIStoryboard(name: "Main", bundle: nil)
+        var vc = storyboard.instantiateViewControllerWithIdentifier("MyLoveViewController") as! MyLoveViewController
+       // self.navigationController?.pushViewController(vc, animated: true)
+        self.presentViewController(
+            vc, animated: true, completion: {
+                println()
+                
+        })
     }
     func showPopMenu(){//tanpop
         var array=NSMutableArray()
