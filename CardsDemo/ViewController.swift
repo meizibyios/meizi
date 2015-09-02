@@ -29,17 +29,13 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.view.backgroundColor = ViewController.bg_color()
-        
         self.swipeableView = MABCardsContainer(frame: CGRectMake(20, 30, self.view.frame.width-40, self.view.frame.height-158))
         self.swipeableView.setNeedsLayout()
         self.swipeableView.layoutIfNeeded()
         self.swipeableView.dataSource = self;
         self.swipeableView.delegate = self;
-        
         addHaloLayer()
         getPicList()
-        
-        
     }
     
     func addHaloLayer(){
