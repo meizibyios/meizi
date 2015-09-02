@@ -11,8 +11,13 @@ import Alamofire
 import SwiftyJSON
 
 class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsContainerDataSource,JKPopMenuViewSelectDelegate{
-    func loveBizhiUrl ( page:NSInteger)->String {return "http://api.lovebizhi.com/macos_v4.php?a=category&spdy=1&tid=3&order=hot&color_id=3&device=105&uuid=436e4ddc389027ba3aef863a27f6e6f9&mode=0&retina=0&client_id=1008&device_id=31547324&model_id=105&size_id=0&channel_id=70001&screen_width=1920&screen_height=1200&bizhi_width=800&bizhi_height=1200&version_code=19&language=zh-Hans&jailbreak=0&mac=&p=\(page)"}
-    
+   class func loveBizhiUrl ( page:NSInteger)->String {return "http://api.lovebizhi.com/macos_v4.php?a=category&spdy=1&tid=3&order=hot&color_id=3&device=105&uuid=436e4ddc389027ba3aef863a27f6e6f9&mode=0&retina=0&client_id=1008&device_id=31547324&model_id=105&size_id=0&channel_id=70001&screen_width=1920&screen_height=1200&bizhi_width=800&bizhi_height=1200&version_code=19&language=zh-Hans&jailbreak=0&mac=&p=\(page)"}
+    class func bg_color()-> UIColor{
+        return UIColor(red: 232.0/255, green: 232.0/255, blue: 232.0/255, alpha: 1)
+    }
+    class func main_color()->UIColor {
+        return UIColor(red: 254.0/255, green: 208.0/255, blue: 9.0/255, alpha: 1)
+    }
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -23,7 +28,7 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.view.backgroundColor = UIColor(red: 0, green: 176.0/255, blue: 1, alpha: 1)
+        self.view.backgroundColor = ViewController.bg_color()
         
         self.swipeableView = MABCardsContainer(frame: CGRectMake(20, 30, self.view.frame.width-40, self.view.frame.height-158))
         self.swipeableView.setNeedsLayout()
@@ -31,18 +36,28 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
         self.swipeableView.dataSource = self;
         self.swipeableView.delegate = self;
         
-        var btn = UIButton(frame: CGRectMake(10, 430, 300, 50))
-        btn .setTitle("Reload Cards", forState: UIControlState.Normal)
-        //btn.backgroundColor = UIColor.blackColor()
-        btn.addTarget(self, action: "showPopMenu", forControlEvents: UIControlEvents.TouchUpInside)
-        
-        self.view.addSubview(swipeableView)
-        self.view.addSubview(btn)
+        addHaloLayer()
         getPicList()
         
         
     }
     
+    func addHaloLayer(){
+        var btn = UIButton(frame: CGRectMake(self.view.frame.width/2-50, self.swipeableView.frame.height+30, 100, 100))
+        btn .setTitle("+", forState: UIControlState.Normal)
+        btn.titleLabel?.font=UIFont .systemFontOfSize(18)
+        //btn.backgroundColor = UIColor.blackColor()
+        btn.addTarget(self, action: "showPopMenu", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        self.view.addSubview(swipeableView)
+        self.view.addSubview(btn)
+        let layer=PulsingHaloLayer()
+        layer.radius=50
+        layer.backgroundColor=ViewController.main_color().CGColor
+        layer.position=btn.layer.position
+        self.view.layer.addSublayer(layer)
+        
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -68,14 +83,6 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
         //NSLog(@"%s",__func__);
         //  startItemDetilViewController()
         startMyLoveViewController()
-    }
-    func startItemDetilViewController()// 图片详情
-    {
-        var storyboard=UIStoryboard(name: "Main", bundle: nil)
-        var vc = storyboard.instantiateViewControllerWithIdentifier("StoryViewController") as! StoryViewController
-        self.presentViewController(vc, animated: true,completion:nil);
-        
-        
     }
     func startMyLoveViewController(){// 我喜欢的 列表
         var storyboard=UIStoryboard(name: "Main", bundle: nil)
@@ -183,7 +190,7 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
     }
     
     func getLovebizhiList(){
-        Alamofire.request(.GET, loveBizhiUrl(pagenum), headers: nil,parameters:nil
+        Alamofire.request(.GET, ViewController.loveBizhiUrl(pagenum), headers: nil,parameters:nil
             )
             .responseJSON { _, _, jSON, _ in
                 let json=JSON(jSON!)

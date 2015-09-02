@@ -9,6 +9,7 @@
 #import "QiniuUtiloc.h"
 #import "MJRefresh.h"
 #import "StoryViewController.h"
+#import "PulsingHaloLayer.h"
 #ifndef meizi_OC_Header_h®
 #define meizi_OC_Header_h
 

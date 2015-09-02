@@ -48,6 +48,11 @@
 		CDD21F201B8E04EC00F0F6C0 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDD21F1F1B8E04EC00F0F6C0 /* SDWebImage.framework */; };
 		CDD21F251B8EF12000F0F6C0 /* QiniuUitl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD21F241B8EF12000F0F6C0 /* QiniuUitl.swift */; };
 		CDD21F281B8EF2AC00F0F6C0 /* QiniuUtiloc.m in Sources */ = {isa = PBXBuildFile; fileRef = CDD21F271B8EF2AC00F0F6C0 /* QiniuUtiloc.m */; };
+		CE1E02F61B96CC3F0087056D /* FXBlurView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE1E02F51B96CC3F0087056D /* FXBlurView.framework */; };
+		CE2077FA1B96D93B00D6DD08 /* PulsingHalo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE2077F91B96D93B00D6DD08 /* PulsingHalo.framework */; };
+		CE2078031B96D99E00D6DD08 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = CE2077FE1B96D99E00D6DD08 /* LICENSE */; };
+		CE2078041B96D99E00D6DD08 /* PulsingHaloLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2078011B96D99E00D6DD08 /* PulsingHaloLayer.m */; };
+		CE2078051B96D99E00D6DD08 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = CE2078021B96D99E00D6DD08 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -131,6 +136,13 @@
 		CDD21F241B8EF12000F0F6C0 /* QiniuUitl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QiniuUitl.swift; sourceTree = "<group>"; };
 		CDD21F261B8EF2AC00F0F6C0 /* QiniuUtiloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QiniuUtiloc.h; sourceTree = "<group>"; };
 		CDD21F271B8EF2AC00F0F6C0 /* QiniuUtiloc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QiniuUtiloc.m; sourceTree = "<group>"; };
+		CE1E02F51B96CC3F0087056D /* FXBlurView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FXBlurView.framework; path = "Pods/../build/Debug-iphoneos/FXBlurView.framework"; sourceTree = "<group>"; };
+		CE1E02F71B96CC4E0087056D /* PulsingHalo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PulsingHalo.framework; path = "Pods/../build/Debug-iphoneos/PulsingHalo.framework"; sourceTree = "<group>"; };
+		CE2077F91B96D93B00D6DD08 /* PulsingHalo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PulsingHalo.framework; path = "Pods/../build/Debug-iphoneos/PulsingHalo.framework"; sourceTree = "<group>"; };
+		CE2077FE1B96D99E00D6DD08 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		CE2078001B96D99E00D6DD08 /* PulsingHaloLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PulsingHaloLayer.h; sourceTree = "<group>"; };
+		CE2078011B96D99E00D6DD08 /* PulsingHaloLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PulsingHaloLayer.m; sourceTree = "<group>"; };
+		CE2078021B96D99E00D6DD08 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +150,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE2077FA1B96D93B00D6DD08 /* PulsingHalo.framework in Frameworks */,
+				CE1E02F61B96CC3F0087056D /* FXBlurView.framework in Frameworks */,
 				CDD21F201B8E04EC00F0F6C0 /* SDWebImage.framework in Frameworks */,
 				CDD21F191B8DAFFF00F0F6C0 /* Alamofire.framework in Frameworks */,
 				1F09572A8B2B03A746DA462D /* Pods.framework in Frameworks */,
@@ -170,6 +184,7 @@
 		8E018D981A2A3D9B00BFBC40 /* meizi */ = {
 			isa = PBXGroup;
 			children = (
+				CE2077FD1B96D99E00D6DD08 /* PulsingHalo */,
 				CD99F5311B947831009F7917 /* MJRefresh */,
 				CD99F5211B9475ED009F7917 /* TableViewWHeader */,
 				CDD21F231B8EE48200F0F6C0 /* Uitl */,
@@ -378,9 +393,31 @@
 			name = Uitl;
 			sourceTree = "<group>";
 		};
+		CE2077FD1B96D99E00D6DD08 /* PulsingHalo */ = {
+			isa = PBXGroup;
+			children = (
+				CE2077FE1B96D99E00D6DD08 /* LICENSE */,
+				CE2077FF1B96D99E00D6DD08 /* PulsingHalo */,
+				CE2078021B96D99E00D6DD08 /* README.md */,
+			);
+			path = PulsingHalo;
+			sourceTree = "<group>";
+		};
+		CE2077FF1B96D99E00D6DD08 /* PulsingHalo */ = {
+			isa = PBXGroup;
+			children = (
+				CE2078001B96D99E00D6DD08 /* PulsingHaloLayer.h */,
+				CE2078011B96D99E00D6DD08 /* PulsingHaloLayer.m */,
+			);
+			path = PulsingHalo;
+			sourceTree = "<group>";
+		};
 		EFFDCD4AD3F84E0358280B39 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CE2077F91B96D93B00D6DD08 /* PulsingHalo.framework */,
+				CE1E02F71B96CC4E0087056D /* PulsingHalo.framework */,
+				CE1E02F51B96CC3F0087056D /* FXBlurView.framework */,
 				CD54213E1B9586A20045E69B /* SwiftyJSON.framework */,
 				CD99F51C1B9447E0009F7917 /* MJRefresh.framework */,
 				CDD21F1F1B8E04EC00F0F6C0 /* SDWebImage.framework */,
@@ -454,6 +491,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE2078031B96D99E00D6DD08 /* LICENSE in Resources */,
 				8E018DA11A2A3D9C00BFBC40 /* Main.storyboard in Resources */,
 				CD5421441B95A0AF0045E69B /* mylove.plist in Resources */,
 				8E018DA61A2A3D9C00BFBC40 /* LaunchScreen.xib in Resources */,
@@ -527,12 +565,14 @@
 				CD99F5701B947831009F7917 /* UIView+MJExtension.m in Sources */,
 				CD99F5641B947831009F7917 /* MJRefreshAutoNormalFooter.m in Sources */,
 				CD99F5611B947831009F7917 /* MJRefreshFooter.m in Sources */,
+				CE2078041B96D99E00D6DD08 /* PulsingHaloLayer.m in Sources */,
 				8E018DBE1A2A3DC100BFBC40 /* MABCardView.swift in Sources */,
 				CD99F56B1B947831009F7917 /* MJRefreshStateHeader.m in Sources */,
 				CD99F5631B947831009F7917 /* MJRefreshAutoGifFooter.m in Sources */,
 				CDD21F281B8EF2AC00F0F6C0 /* QiniuUtiloc.m in Sources */,
 				CD99F55F1B947831009F7917 /* MJRefreshBackFooter.m in Sources */,
 				CD99F5681B947831009F7917 /* MJRefreshBackStateFooter.m in Sources */,
+				CE2078051B96D99E00D6DD08 /* README.md in Sources */,
 				CD99F5691B947831009F7917 /* MJRefreshGifHeader.m in Sources */,
 				CD99F5721B9480DD009F7917 /* MyLoveViewCell.swift in Sources */,
 				CDD21F1E1B8DE8A800F0F6C0 /* PicItem.swift in Sources */,
