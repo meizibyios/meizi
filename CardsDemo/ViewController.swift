@@ -35,7 +35,7 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
         self.swipeableView.dataSource = self;
         self.swipeableView.delegate = self;
         addHaloLayer()
-        getPicList()
+//        getPicList()
     }
     
     func addHaloLayer(){
