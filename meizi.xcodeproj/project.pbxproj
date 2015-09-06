@@ -53,6 +53,7 @@
 		CE2078031B96D99E00D6DD08 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = CE2077FE1B96D99E00D6DD08 /* LICENSE */; };
 		CE2078041B96D99E00D6DD08 /* PulsingHaloLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2078011B96D99E00D6DD08 /* PulsingHaloLayer.m */; };
 		CE2078051B96D99E00D6DD08 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = CE2078021B96D99E00D6DD08 /* README.md */; };
+		CE8313831B9C141200C43048 /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8313821B9C141200C43048 /* GlobalVariables.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -143,6 +144,7 @@
 		CE2078001B96D99E00D6DD08 /* PulsingHaloLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PulsingHaloLayer.h; sourceTree = "<group>"; };
 		CE2078011B96D99E00D6DD08 /* PulsingHaloLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PulsingHaloLayer.m; sourceTree = "<group>"; };
 		CE2078021B96D99E00D6DD08 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		CE8313821B9C141200C43048 /* GlobalVariables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalVariables.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -389,6 +391,7 @@
 				CDD21F241B8EF12000F0F6C0 /* QiniuUitl.swift */,
 				CDD21F261B8EF2AC00F0F6C0 /* QiniuUtiloc.h */,
 				CDD21F271B8EF2AC00F0F6C0 /* QiniuUtiloc.m */,
+				CE8313821B9C141200C43048 /* GlobalVariables.swift */,
 			);
 			name = Uitl;
 			sourceTree = "<group>";
@@ -586,6 +589,7 @@
 				8E018D9C1A2A3D9C00BFBC40 /* AppDelegate.swift in Sources */,
 				CD99F5621B947831009F7917 /* MJRefreshHeader.m in Sources */,
 				CD99F56E1B947831009F7917 /* UIScrollView+MJExtension.m in Sources */,
+				CE8313831B9C141200C43048 /* GlobalVariables.swift in Sources */,
 				CD99F5651B947831009F7917 /* MJRefreshAutoStateFooter.m in Sources */,
 				CDD21F251B8EF12000F0F6C0 /* QiniuUitl.swift in Sources */,
 				CD99F5671B947831009F7917 /* MJRefreshBackNormalFooter.m in Sources */,

@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<key>mylove</key>
-	<array/>
-</dict>
+<array>
+	<string>http://up.2cto.com/2013/0519/20130519025030169.png</string>
+	<string>11</string>
+	<string>111</string>
+	<string>1111</string>
+	<string>1111</string>
+</array>
 </plist>

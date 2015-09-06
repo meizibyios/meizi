@@ -9,7 +9,7 @@
 #import "StoryViewController.h"
 #import "ParallaxHeaderView.h"
 #import "StoryCommentCell.h"
-
+#import "OCHeader.h"
 @interface StoryViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *mainTableView;
 
@@ -29,10 +29,26 @@
     [StoryCommentCell setTableViewWidth:self.mainTableView.frame.size.width];    
     
     // Create ParallaxHeaderView with specified size, and set it as uitableView Header, that's it
-    ParallaxHeaderView *headerView = [ParallaxHeaderView parallaxHeaderViewWithImage:[UIImage imageNamed:@"HeaderImage"] forSize:CGSizeMake(self.mainTableView.frame.size.width, 300)];
-    headerView.headerTitleLabel.text = self.story[@"story"];
+
     
-    [self.mainTableView setTableHeaderView:headerView];
+   
+    [SDWebImageDownloader.sharedDownloader downloadImageWithURL: [[NSURL alloc ] initWithString:self.imageUrl]
+                                                        options:0
+                                                       progress:^(NSInteger receivedSize, NSInteger expectedSize)
+     {
+         // progression tracking code
+     }
+                                                      completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished)
+     {
+         if (image && finished)
+         {
+             // do something with image
+             ParallaxHeaderView *headerView = [ParallaxHeaderView parallaxHeaderViewWithImage:image forSize:CGSizeMake(self.mainTableView.frame.size.width, 300)];
+             headerView.headerTitleLabel.text = self.story[@"story"];
+             [self.mainTableView setTableHeaderView:headerView];
+         }
+     }];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -124,5 +140,10 @@
         cell = [StoryCommentCell storyCommentCellForTableWidth:self.mainTableView.frame.size.width];
     }
     return cell;
+}
+- (IBAction)backClick:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
 }
 @end

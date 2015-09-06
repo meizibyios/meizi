@@ -35,7 +35,7 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
         self.swipeableView.dataSource = self;
         self.swipeableView.delegate = self;
         addHaloLayer()
-//        getPicList()
+        getPicList()
     }
     
     func addHaloLayer(){
@@ -105,7 +105,23 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
     
     // MABCardsContainerDelegate
     func containerViewDidSwipeLeft(containerView:MABCardsContainer, UIView) {}
-    func containerViewDidSwipeRight(containerView:MABCardsContainer, UIView) {}
+    func containerViewDidSwipeRight(containerView:MABCardsContainer, _ view:UIView) {
+        var array=NSMutableArray(contentsOfFile: GlobalVariables.getMyLovePlistPath())
+        var url=(view as! UIImageView).sd_imageURL().URLString
+        if array?.containsObject(url)==false
+        {
+//            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//            NSString *documentsDirectory = [paths objectAtIndex:0];
+//            NSString* path = [NSString stringWithFormat:@"%@/%@",documentsDirectory,@"astring1.text"];
+            
+            
+            array?.insertObject(url, atIndex: 0)
+           var issuccess = array?.writeToFile(GlobalVariables.getMyLovePlistPath(), atomically: true)
+            println(issuccess)
+        }
+        var array1=NSMutableArray(contentsOfFile: GlobalVariables.getMyLovePlistPath())
+        
+    }
     func containerViewDidStartSwipingCard(containerView:MABCardsContainer, card:UIView, location:CGPoint) {}
     func containerSwipingCard(containerView:MABCardsContainer, card:UIView, location:CGPoint, translation:CGPoint) {}
     func containerViewDidEndSwipingCard(containerView:MABCardsContainer, card:UIView, location:CGPoint) {}

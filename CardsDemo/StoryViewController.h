@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface StoryViewController : UIViewController
-
+@property NSString* imageUrl;
+- (IBAction)backClick:(id)sender;
 
 @end
 
