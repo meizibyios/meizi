@@ -53,9 +53,13 @@ class MyLoveViewController: UIViewController,UITableViewDataSource,UITableViewDe
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("MyLoveViewCell") as! MyLoveViewCell
-        cell.imageView?.sd_setImageWithURL( NSURL( string: itemArray.objectAtIndex(indexPath.row) as! String) )
-        cell.imageView?.contentMode=UIViewContentMode.ScaleAspectFill
-        cell.imageView?.clipsToBounds=true
+//        var rect=cell.imageView?.frame
+//        rect?.size.width=self.view.frame.size.width-200
+//        cell.imageView?.frame=rect!
+//        cell.imageView?.contentMode=UIViewContentMode.ScaleAspectFit
+        cell.imageView?.sd_setImageWithURL( NSURL( string: GlobalVariables.loveBizhiUrl21920_1200_2(itemArray.objectAtIndex(indexPath.row) as! String)) )
+//        cell.imageView?.sd_setImageWithURL(url: NSURL!, placeholderImage: <#UIImage!#>)
+        
         return cell
     }
    

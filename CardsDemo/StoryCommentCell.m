@@ -51,7 +51,6 @@ static CGFloat kStandardLabelHeight = 20.0f;
     frame.origin.x = self.likeButton.frame.origin.x - kPaddingDist - self.commentsLikesCountLabel.frame.size.width;
     frame.origin.y = self.commentDateLabel.frame.origin.y;
     self.commentsLikesCountLabel.frame = frame;
-    
     frame = self.likeButton.frame;
     frame.origin.y = self.contentView.frame.origin.y + self.contentView.frame.size.height - frame.size.height - kPaddingDist;
     self.likeButton.frame = frame;

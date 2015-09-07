@@ -11,7 +11,7 @@ import Alamofire
 import SwiftyJSON
 
 class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsContainerDataSource,JKPopMenuViewSelectDelegate{
-   class func loveBizhiUrl ( page:NSInteger)->String {return "http://api.lovebizhi.com/macos_v4.php?a=category&spdy=1&tid=3&order=hot&color_id=3&device=105&uuid=436e4ddc389027ba3aef863a27f6e6f9&mode=0&retina=0&client_id=1008&device_id=31547324&model_id=105&size_id=0&channel_id=70001&screen_width=1920&screen_height=1200&bizhi_width=800&bizhi_height=1200&version_code=19&language=zh-Hans&jailbreak=0&mac=&p=\(page)"}
+ 
     class func bg_color()-> UIColor{
         return UIColor(red: 232.0/255, green: 232.0/255, blue: 232.0/255, alpha: 1)
     }
@@ -110,11 +110,6 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
         var url=(view as! UIImageView).sd_imageURL().URLString
         if array?.containsObject(url)==false
         {
-//            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//            NSString *documentsDirectory = [paths objectAtIndex:0];
-//            NSString* path = [NSString stringWithFormat:@"%@/%@",documentsDirectory,@"astring1.text"];
-            
-            
             array?.insertObject(url, atIndex: 0)
            var issuccess = array?.writeToFile(GlobalVariables.getMyLovePlistPath(), atomically: true)
             println(issuccess)
@@ -202,7 +197,7 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
     }
     
     func getLovebizhiList(){
-        Alamofire.request(.GET, ViewController.loveBizhiUrl(pagenum), headers: nil,parameters:nil
+        Alamofire.request(.GET, GlobalVariables.loveBizhiUrl(pagenum), headers: nil,parameters:nil
             )
             .responseJSON { _, _, jSON, _ in
                 let json=JSON(jSON!)
