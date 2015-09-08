@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -10,8 +9,8 @@
             <objects>
                 <viewController id="vXZ-lx-hvc" customClass="ViewController" customModule="meizi" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
-                        <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
+                        <viewControllerLayoutGuide type="top" id="69c-9x-tKR"/>
+                        <viewControllerLayoutGuide type="bottom" id="ISy-RO-LI3"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
@@ -21,74 +20,20 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="244.5" y="254.24999999999997"/>
         </scene>
         <!--My Love View Controller-->
         <scene sceneID="7En-MH-OfX">
             <objects>
                 <viewController storyboardIdentifier="MyLoveViewController" id="0XI-27-7rM" customClass="MyLoveViewController" customModule="meizi" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="NlA-nX-4XE"/>
-                        <viewControllerLayoutGuide type="bottom" id="H6p-jg-ERN"/>
+                        <viewControllerLayoutGuide type="top" id="6j6-cf-YBY"/>
+                        <viewControllerLayoutGuide type="bottom" id="g9N-V9-KxG"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="N0A-Kp-ra6">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="303" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="cdI-iz-TCj">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell autoresizesSubviews="NO" contentMode="scaleToFill" restorationIdentifier="UITableViewCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyLoveViewCell" rowHeight="304" id="g80-xZ-bNN" customClass="MyLoveViewCell" customModule="meizi" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="g80-xZ-bNN" id="hGQ-Xc-dDh">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="HeaderImage" translatesAutoresizingMaskIntoConstraints="NO" id="Lxj-9i-Vzy">
-                                                    <rect key="frame" x="8" y="13" width="100" height="300"/>
-                                                    <variation key="widthClass=compact" ambiguous="YES">
-                                                        <rect key="frame" x="8" y="3" width="384" height="300"/>
-                                                    </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="8" y="0.0" width="379" height="286"/>
-                                                    </variation>
-                                                </imageView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottomMargin" secondItem="Lxj-9i-Vzy" secondAttribute="bottom" constant="1.5" id="9eV-sp-LCl"/>
-                                                <constraint firstItem="Lxj-9i-Vzy" firstAttribute="leading" secondItem="hGQ-Xc-dDh" secondAttribute="leadingMargin" constant="3" id="aHn-jP-NZ1"/>
-                                                <constraint firstItem="Lxj-9i-Vzy" firstAttribute="top" secondItem="hGQ-Xc-dDh" secondAttribute="topMargin" id="i3b-xZ-m8Z"/>
-                                            </constraints>
-                                            <variation key="default">
-                                                <mask key="constraints">
-                                                    <exclude reference="9eV-sp-LCl"/>
-                                                    <exclude reference="aHn-jP-NZ1"/>
-                                                    <exclude reference="i3b-xZ-m8Z"/>
-                                                </mask>
-                                            </variation>
-                                            <variation key="heightClass=regular-widthClass=compact">
-                                                <mask key="constraints">
-                                                    <include reference="9eV-sp-LCl"/>
-                                                    <include reference="aHn-jP-NZ1"/>
-                                                    <include reference="i3b-xZ-m8Z"/>
-                                                </mask>
-                                            </variation>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="imageview" destination="Lxj-9i-Vzy" id="HNo-17-WCn"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                                <variation key="heightClass=compact" ambiguous="YES">
-                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="0.0"/>
-                                </variation>
-                                <variation key="heightClass=regular" ambiguous="YES">
-                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="0.0"/>
-                                </variation>
-                                <variation key="widthClass=compact" ambiguous="YES">
-                                    <rect key="frame" x="0.0" y="0.0" width="400" height="600"/>
-                                </variation>
-                            </tableView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sgx-AT-ocw">
                                 <rect key="frame" x="20" y="20" width="44" height="44"/>
                                 <state key="normal" title="back">
@@ -98,78 +43,49 @@
                                     <action selector="backClick:" destination="0XI-27-7rM" eventType="touchUpInside" id="cdt-Fq-CzN"/>
                                 </connections>
                             </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="187" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="vda-nK-C25">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="left" restorationIdentifier="MyLoveViewCell" selectionStyle="default" indentationWidth="0.0" reuseIdentifier="MyLoveViewCell" rowHeight="187" id="1dZ-Cs-h6O" customClass="MyLoveViewCell" customModule="meizi" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="187"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1dZ-Cs-h6O" id="nKL-A0-juI">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="186.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="0.0" y="0.0" width="400" height="568"/>
+                                </variation>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="cdI-iz-TCj" secondAttribute="trailing" constant="-16" id="4S3-Y0-jGZ"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="cdI-iz-TCj" secondAttribute="trailing" constant="-16" id="AZG-Kw-92a"/>
-                            <constraint firstItem="cdI-iz-TCj" firstAttribute="leading" secondItem="N0A-Kp-ra6" secondAttribute="leadingMargin" constant="-16" id="VWe-yS-jxT"/>
-                            <constraint firstItem="H6p-jg-ERN" firstAttribute="top" secondItem="cdI-iz-TCj" secondAttribute="bottom" id="dWS-j8-QAB"/>
-                            <constraint firstItem="cdI-iz-TCj" firstAttribute="top" secondItem="N0A-Kp-ra6" secondAttribute="topMargin" id="dpF-Ff-iFC"/>
-                            <constraint firstItem="cdI-iz-TCj" firstAttribute="top" secondItem="N0A-Kp-ra6" secondAttribute="topMargin" id="oZP-uF-VHs"/>
-                            <constraint firstItem="cdI-iz-TCj" firstAttribute="leading" secondItem="N0A-Kp-ra6" secondAttribute="leadingMargin" constant="-16" id="v4h-qv-E60"/>
-                            <constraint firstItem="H6p-jg-ERN" firstAttribute="top" secondItem="cdI-iz-TCj" secondAttribute="bottom" id="vH4-KL-Gxk"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="4S3-Y0-jGZ"/>
-                                <exclude reference="AZG-Kw-92a"/>
-                                <exclude reference="VWe-yS-jxT"/>
-                                <exclude reference="dpF-Ff-iFC"/>
-                                <exclude reference="oZP-uF-VHs"/>
-                                <exclude reference="v4h-qv-E60"/>
-                                <exclude reference="dWS-j8-QAB"/>
-                                <exclude reference="vH4-KL-Gxk"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=regular-widthClass=compact">
-                            <mask key="subviews">
-                                <include reference="cdI-iz-TCj"/>
-                            </mask>
-                            <mask key="constraints">
-                                <include reference="4S3-Y0-jGZ"/>
-                                <include reference="AZG-Kw-92a"/>
-                                <include reference="VWe-yS-jxT"/>
-                                <include reference="dpF-Ff-iFC"/>
-                                <include reference="oZP-uF-VHs"/>
-                                <include reference="v4h-qv-E60"/>
-                                <include reference="dWS-j8-QAB"/>
-                                <include reference="vH4-KL-Gxk"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
-                        <outlet property="itemTableview" destination="cdI-iz-TCj" id="7Fb-Lv-EPH"/>
+                        <outlet property="itemTableview" destination="vda-nK-C25" id="zwB-6f-aYI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V9I-ix-VdX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1890" y="156"/>
+            <point key="canvasLocation" x="1890" y="155.25"/>
         </scene>
         <!--Parallax Header-->
         <scene sceneID="1f7-ou-Peo">
             <objects>
                 <viewController storyboardIdentifier="StoryViewController" id="9Ln-U0-cdl" customClass="StoryViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="pV5-5U-McS"/>
-                        <viewControllerLayoutGuide type="bottom" id="ZeZ-0Z-kRz"/>
+                        <viewControllerLayoutGuide type="top" id="Vkh-Ck-kZW"/>
+                        <viewControllerLayoutGuide type="bottom" id="C8H-qp-X15"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="89j-LE-2lG">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleAspectFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="XU6-FU-mwW">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="XU6-FU-mwW">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="573"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <variation key="heightClass=compact" ambiguous="YES">
-                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="0.0"/>
-                                </variation>
-                                <variation key="heightClass=regular" ambiguous="YES">
-                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="0.0"/>
-                                </variation>
-                                <variation key="widthClass=compact" ambiguous="YES">
-                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="0.0"/>
-                                </variation>
                                 <connections>
                                     <outlet property="dataSource" destination="9Ln-U0-cdl" id="vih-wx-7jc"/>
                                     <outlet property="delegate" destination="9Ln-U0-cdl" id="oxI-bw-pW4"/>
@@ -186,28 +102,6 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="XU6-FU-mwW" secondAttribute="trailing" constant="-16" id="MFA-gt-knt"/>
-                            <constraint firstItem="XU6-FU-mwW" firstAttribute="top" secondItem="89j-LE-2lG" secondAttribute="topMargin" id="OAw-sM-oRa"/>
-                            <constraint firstItem="XU6-FU-mwW" firstAttribute="leading" secondItem="89j-LE-2lG" secondAttribute="leadingMargin" constant="-16" id="S9G-f6-apB"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="XU6-FU-mwW" secondAttribute="bottom" constant="-5" id="tee-Om-gOx"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="MFA-gt-knt"/>
-                                <exclude reference="OAw-sM-oRa"/>
-                                <exclude reference="S9G-f6-apB"/>
-                                <exclude reference="tee-Om-gOx"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=regular-widthClass=compact">
-                            <mask key="constraints">
-                                <include reference="MFA-gt-knt"/>
-                                <include reference="OAw-sM-oRa"/>
-                                <include reference="S9G-f6-apB"/>
-                                <include reference="tee-Om-gOx"/>
-                            </mask>
-                        </variation>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="Parallax Header" id="bbz-4q-keA"/>
@@ -217,10 +111,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WDy-Xv-Tfc" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="982.5" y="657.75"/>
+            <point key="canvasLocation" x="982.5" y="657.74999999999989"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="HeaderImage" width="360" height="225"/>
-    </resources>
 </document>

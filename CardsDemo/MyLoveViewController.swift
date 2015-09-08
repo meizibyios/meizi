@@ -58,8 +58,16 @@ class MyLoveViewController: UIViewController,UITableViewDataSource,UITableViewDe
 //        cell.imageView?.frame=rect!
 //        cell.imageView?.contentMode=UIViewContentMode.ScaleAspectFit
         cell.imageView?.sd_setImageWithURL( NSURL( string: GlobalVariables.loveBizhiUrl21920_1200_2(itemArray.objectAtIndex(indexPath.row) as! String)) )
-//        cell.imageView?.sd_setImageWithURL(url: NSURL!, placeholderImage: <#UIImage!#>)
+        cell.imageView?.sd_setImageWithURL(NSURL( string: GlobalVariables.loveBizhiUrl21920_1200_2(itemArray.objectAtIndex(indexPath.row) as! String)) , completed: { (uiimage, NSError, SDImageCacheType, NSURL) -> Void in
+            cell.imageView?.image=uiimage
+            var rect=cell.imageView?.frame
+            rect?.size.width=self.view.frame.width-200
+            cell.imageView?.frame=rect!
+        })
+        //        cell.imageView?.sd_setImageWithURL(url: NSURL!, placeholderImage: <#UIImage!#>)
+//        cell.imageView?.sd_setImageWithURL(url: NSURL( string: GlobalVariables.loveBizhiUrl21920_1200_2(itemArray.objectAtIndex(indexPath.row) as! String)) , placeholderImage: nil!, completed: { (UIImage, NSError, SDImageCacheType, NSURL) -> Void in
         
+//        })
         return cell
     }
    

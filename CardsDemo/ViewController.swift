@@ -25,6 +25,7 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
     var swipeableView:MABCardsContainer!
     var pagenum=0
     var itemArray:NSMutableArray=NSMutableArray()
+    var source=0
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -78,29 +79,56 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
     {
         //NSLog(@"%s",__func__);
         //  startItemDetilViewController()
-        startMyLoveViewController()
+        switch index
+        {
+        case 0:
+            startMyLoveViewController()
+        case 1:
+            if source != 0
+            {
+                source=0
+                reloadList()
+            }
+        case 2:
+            if source != 1
+            {
+                source=1
+                reloadList()
+            }
+            
+        default :break
+        }
     }
     func startMyLoveViewController(){// 我喜欢的 列表
         var storyboard=UIStoryboard(name: "Main", bundle: nil)
         var vc = storyboard.instantiateViewControllerWithIdentifier("MyLoveViewController") as! MyLoveViewController
         self.presentViewController(
             vc, animated: true, completion: {
-                println()
                 
         })
     }
     func showPopMenu(){//tanpop
         var array=NSMutableArray()
-        for index in 1...6  {
+        for index in 1...4  {
             var string="icon\(index)"
-            var item=JKPopMenuItem(title:string ,image:UIImage(named: string))
+            var item=JKPopMenuItem(title:"" ,image:UIImage(named: string))
             array.addObject(item)
         }
         var jkpop=JKPopMenuView(items:array as [AnyObject])
         jkpop.delegate=self
         jkpop.show()
-        
-        
+    }
+    
+    func showPopMenuT(){//tanpop
+        var array=NSMutableArray()
+        for index in 1...4  {
+            var string="icon\(index)"
+            var item=JKPopMenuItem(title:"" ,image:UIImage(named: string))
+            array.addObject(item)
+        }
+        var jkpop=JKPopMenuView(items:array as [AnyObject])
+        jkpop.delegate=self
+        jkpop.show()
     }
     
     // MABCardsContainerDelegate
@@ -165,8 +193,15 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
     }
     func getPicList()
     {
-        getLovebizhiList()
-        //        getPicListFApi()
+        if source==0
+        {getLovebizhiList()}
+        else
+        { getPicListFApi()}
+    }
+    func reloadList()
+    {
+        itemArray.removeAllObjects()
+        getPicList()
     }
     func getPicListFApi()// piclist  from the api
     {
