@@ -108,22 +108,13 @@
 - (void)loadPlaceHolderComments
 {
     NSMutableDictionary *story = [NSMutableDictionary dictionary];
-    story[@"story"] = @"I Love My Friends";
+    story[@"story"] = @"";
     story[@"likes"] = @1;
     
     
     NSArray *comments = @[
-                          @{kCommentKey: @"Friendship is always a sweet responsibility, never an opportunity", kTimeKey : @"1 Min Ago", kLikesCountKey : @"3"},
-                          @{kCommentKey: @"True friendship is when you walk into their house and your WiFi connects automatically", kTimeKey : @"1 Min Ago", kLikesCountKey : @"3"},
-                          @{kCommentKey: @"True friendship multiplies the good in life and divides its evils. Strive to have friends, for life without friends is like life on a desert island… to find one real friend in a lifetime is good fortune; to keep him is a blessing.", kTimeKey : @"1 Min Ago", kLikesCountKey : @"3"},
-                          @{kCommentKey: @"Like Thought Catalog on Facebook", kTimeKey : @"1 Min Ago", kLikesCountKey : @"3"},
-                          @{kCommentKey: @"The language of friendship is not words but meanings", kTimeKey : @"1 Min Ago", kLikesCountKey : @"3"},
-                          @{kCommentKey: @"Don’t walk behind me; I may not lead. Don’t walk in front of me; I may not follow. Just walk beside me and be my friend.", kTimeKey : @"1 Min Ago", kLikesCountKey : @"3"},
-                          @{kCommentKey: @"Friendship is like money, easier made than kept. – Samuel Butler", kTimeKey : @"1 Min Ago", kLikesCountKey : @"3"},
-                          @{kCommentKey: @"A friend is one that knows you as you are, understands where you have been, accepts what you have become, and still, gently allows you to grow. – William Shakespeare", kTimeKey : @"1 Min Ago", kLikesCountKey : @"3"},
-                          @{kCommentKey: @"I think if I’ve learned anything about friendship, it’s to hang in, stay connected, fight for them, and let them fight for you. Don’t walk away, don’t be distracted, don’t be too busy or tired, don’t take them for granted. Friends are part of the glue that holds life and faith together. Powerful stuff", kTimeKey : @"1 Min Ago", kLikesCountKey : @"3"},
-                          @{kCommentKey: @"I value the friend who for me finds time on his calendar, but I cherish the friend who for me does not consult his calendar", kTimeKey : @"1 Min Ago", kLikesCountKey : @"3"},
-                          @{kCommentKey: @"Every friendship travels at sometime through the black valley of despair. This tests every aspect of your affection. You lose the attraction and the magic. Your sense of each other darkens and your presence is sore. If you can come through this time, it can purify with your love, and falsity and need will fall away. It will bring you onto new ground where affection can grow again Friendship improves happiness, and abates misery, by doubling our joys, and dividing our grief Do not save your loving speeches For your friends till they are dead Do not write them on their tombstones, Speak them rather now instead", kTimeKey : @"1 Min Ago", kLikesCountKey : @"3"}
+                          @{kCommentKey: @"评论功能马上上线，妹子在这里等你哦！", kTimeKey : @"刚刚", kLikesCountKey : @"3"},
+
                           ];
     
     [story setObject:comments forKey:kCommentsKey];

@@ -22,12 +22,10 @@ class MyLoveViewController: UIViewController,UITableViewDataSource,UITableViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         weak var weakSelf=self
-//        self.navigationController!.interactivePopGestureRecognizer.enabled = true
-//        if self.respondsToSelector(Selector("interactivePopGestureRecognizer"))
-//        {
-////            self.interactivePopGestureRecognizer.delegate = weakSelf;
-//            self.navigationController?.interactivePopGestureRecognizer.delegate=weakSelf
-//        }
+        var rect=self.view.frame
+        rect.size.width-=10
+        itemTableview.frame=rect
+        itemTableview.rowHeight=(rect.width-10)*30/48
         initdata()
         itemTableview.delegate=self
         itemTableview.dataSource=self
@@ -52,22 +50,33 @@ class MyLoveViewController: UIViewController,UITableViewDataSource,UITableViewDe
         return 1
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("MyLoveViewCell") as! MyLoveViewCell
+//        var cell = tableView.dequeueReusableCellWithIdentifier("MyLoveViewCellhead") as! MyLoveViewCell
+//
+//        static NSString *TableSampleIdentifier = @"TableSampleIdentifier";
+//        //    用TableSampleIdentifier表示需要重用的单元
+//        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TableSampleIdentifier];
+//        //    如果如果没有多余单元，则需要创建新的单元
+//        if (cell == nil) {
+//            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:TableSampleIdentifier];
+//        }  
+        
+//        if cell.
+//        {
+          var  cell=MyLoveViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "MyLoveViewCellhead") as MyLoveViewCell
+            var imageview=UIImageView()
+            var rect=self.view.frame
+            rect.size.height=tableView.rowHeight
+            imageview.frame=rect
+            imageview.contentMode=UIViewContentMode.ScaleAspectFit
+            cell.addSubview(imageview)
+            cell.imageview=imageview
+//        }
 //        var rect=cell.imageView?.frame
-//        rect?.size.width=self.view.frame.size.width-200
+//        rect?.size.width=self.view.frame.size.width-100
 //        cell.imageView?.frame=rect!
 //        cell.imageView?.contentMode=UIViewContentMode.ScaleAspectFit
-        cell.imageView?.sd_setImageWithURL( NSURL( string: GlobalVariables.loveBizhiUrl21920_1200_2(itemArray.objectAtIndex(indexPath.row) as! String)) )
-        cell.imageView?.sd_setImageWithURL(NSURL( string: GlobalVariables.loveBizhiUrl21920_1200_2(itemArray.objectAtIndex(indexPath.row) as! String)) , completed: { (uiimage, NSError, SDImageCacheType, NSURL) -> Void in
-            cell.imageView?.image=uiimage
-            var rect=cell.imageView?.frame
-            rect?.size.width=self.view.frame.width-200
-            cell.imageView?.frame=rect!
-        })
-        //        cell.imageView?.sd_setImageWithURL(url: NSURL!, placeholderImage: <#UIImage!#>)
-//        cell.imageView?.sd_setImageWithURL(url: NSURL( string: GlobalVariables.loveBizhiUrl21920_1200_2(itemArray.objectAtIndex(indexPath.row) as! String)) , placeholderImage: nil!, completed: { (UIImage, NSError, SDImageCacheType, NSURL) -> Void in
+        cell.imageview.sd_setImageWithURL( NSURL(string :itemArray.objectAtIndex(indexPath.row) as! String) )
         
-//        })
         return cell
     }
    

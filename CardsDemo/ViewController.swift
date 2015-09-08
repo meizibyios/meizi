@@ -109,7 +109,7 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
     }
     func showPopMenu(){//tanpop
         var array=NSMutableArray()
-        for index in 1...4  {
+        for index in 1...6  {
             var string="icon\(index)"
             var item=JKPopMenuItem(title:"" ,image:UIImage(named: string))
             array.addObject(item)
@@ -121,7 +121,7 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
     
     func showPopMenuT(){//tanpop
         var array=NSMutableArray()
-        for index in 1...4  {
+        for index in 1...6  {
             var string="icon\(index)"
             var item=JKPopMenuItem(title:"" ,image:UIImage(named: string))
             array.addObject(item)
@@ -155,7 +155,10 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
         if itemArray.count>0
         {
             
-            var imageView=UIImageView(frame: CGRect(x: 0, y: 0, width:self.view.frame.width-40, height: self.view.frame.height-171))
+            var rect = CGRect(x: 0, y: 0, width:self.view.frame.width-40, height: self.view.frame.height-171)
+            if source==0
+            {rect.size.height=(rect.width)*30/48}
+            var imageView=UIImageView(frame: rect)
             imageView.backgroundColor=UIColor.whiteColor()
             let item=itemArray.objectAtIndex(0) as! PicItem
             itemArray.removeObjectAtIndex(0)
@@ -174,19 +177,6 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
             {
                 getPicList()
             }
-//                var shadowColor2 = UIColor(red: 0.209, green: 0.209, blue: 0.209, alpha: 1)
-//                var shadow = shadowColor2.colorWithAlphaComponent(0.73)
-//                var shadowOffset = CGSizeMake(3.1/2.0, -0.1/2.0);
-//                var shadowBlurRadius = 6.0 as CGFloat
-//                imageView.layer.shadowColor = shadow.CGColor
-//                imageView.layer.shadowOpacity = 0.73
-//                imageView.layer.shadowOffset = shadowOffset
-//                imageView.layer.shadowRadius = shadowBlurRadius
-//                imageView.layer.shouldRasterize = true
-//                
-//                imageView.layer.cornerRadius = 10
-//            var gesture=UIGestureRecognizer(target: self, action: Selector("startItemDetilViewController"))
-//            imageView.addGestureRecognizer(gesture)
             return imageView;
         }
         return nil;

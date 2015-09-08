@@ -8,26 +8,41 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>1</integer>
 		</dict>
 		<key>FXBlurView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>2</integer>
 		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>PulsingHalo.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
 		</dict>
 		<key>SDWebImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>4</integer>
 		</dict>
 		<key>SwiftyJSON.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>5</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -47,12 +62,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>AD3201DECCF6CC920B31BE51F0A42517</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>B9A04D3C9B208813656510FDA8ADAE02</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>BB0E1FEB10ABE0E2926738B909CBC144</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C15513FE965416DC5364DD5B9B22C0F7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CCEE66AE8E021B55C8A0A7D2E6A8884B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E42D08A61764B0135557AF57193B5302</key>
 		<dict>
 			<key>primary</key>
 			<true/>
