@@ -32,7 +32,7 @@ class GlobalVariables: NSObject {
         var comdate=NSDateComponents()
         comdate.month=9
         comdate.year=2015
-        comdate.day=9
+        comdate.day=10
         var caldate=NSCalendar(calendarIdentifier: NSGregorianCalendar)
         var mydata=caldate?.dateFromComponents(comdate)
         var nowdate=NSDate()

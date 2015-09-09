@@ -62,7 +62,7 @@
 		0B4A540AEF7DDC1C07013EEA /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		42DB60393C87C68A19513B94 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		892D64461CF486EEA75806E9 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		8E018D961A2A3D9B00BFBC40 /* meizi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = meizi.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E018D961A2A3D9B00BFBC40 /* 妹子.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "妹子.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E018D9A1A2A3D9C00BFBC40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8E018D9B1A2A3D9C00BFBC40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E018D9D1A2A3D9C00BFBC40 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -182,7 +182,7 @@
 		8E018D971A2A3D9B00BFBC40 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8E018D961A2A3D9B00BFBC40 /* meizi.app */,
+				8E018D961A2A3D9B00BFBC40 /* 妹子.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -460,7 +460,7 @@
 			);
 			name = meizi;
 			productName = CardsDemo;
-			productReference = 8E018D961A2A3D9B00BFBC40 /* meizi.app */;
+			productReference = 8E018D961A2A3D9B00BFBC40 /* 妹子.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -723,7 +723,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
 				);
-				PRODUCT_NAME = meizi;
+				PRODUCT_NAME = "妹子";
 				PROVISIONING_PROFILE = "9ec3af9d-d659-48ac-bb92-1e9f8ab346ab";
 				SWIFT_OBJC_BRIDGING_HEADER = CardsDemo/OCHeader.h;
 			};
@@ -747,7 +747,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
 				);
-				PRODUCT_NAME = meizi;
+				PRODUCT_NAME = "妹子";
 				PROVISIONING_PROFILE = "9ec3af9d-d659-48ac-bb92-1e9f8ab346ab";
 				SWIFT_OBJC_BRIDGING_HEADER = CardsDemo/OCHeader.h;
 			};

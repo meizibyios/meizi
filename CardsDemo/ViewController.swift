@@ -79,6 +79,7 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
     {
         //NSLog(@"%s",__func__);
         //  startItemDetilViewController()
+      
         switch index
         {
         case 0:
@@ -90,11 +91,8 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
                 reloadList()
             }
         case 2:
-            if !GlobalVariables.notInView()
-            {
-                 self.noticeInfo("建设中", autoClear: true, autoClearTime: 1)
-                break
-            }
+         
+            
             if source != 1
             {
                 source=1
@@ -127,6 +125,11 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
         })
     }
     func showPopMenu(){//tanpop
+         if !GlobalVariables.notInView()
+         {
+             startMyLoveViewController()
+            return
+        }
         var array=NSMutableArray()
         for index in 1...6  {
             var string="icon\(index)"
@@ -140,10 +143,23 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
     
     func showPopMenuT(){//tanpop
         var array=NSMutableArray()
-        for index in 1...6  {
-            var string="icon\(index)"
-            var item=JKPopMenuItem(title:"" ,image:UIImage(named: string))
-            array.addObject(item)
+        if !GlobalVariables.notInView()
+        {
+//            for index in 1...6  {
+//                var string="icon\(index)"
+//                var item=JKPopMenuItem(title:"" ,image:UIImage(named: string))
+//                array.addObject(item)
+//            }
+            array.addObject(JKPopMenuItem(title: "", image: UIImage(named: "icon1")))
+            array.addObject(JKPopMenuItem(title: "", image: UIImage(named: "icon6")))
+//            array.addObject(JKPopMenuItem(title: "", image: UIImage(named: "icon1")))
+        }else
+        {
+            for index in 1...6  {
+                var string="icon\(index)"
+                var item=JKPopMenuItem(title:"" ,image:UIImage(named: string))
+                array.addObject(item)
+            }
         }
         var jkpop=JKPopMenuView(items:array as [AnyObject])
         jkpop.delegate=self

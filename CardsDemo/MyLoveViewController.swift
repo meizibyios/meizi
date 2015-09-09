@@ -30,11 +30,11 @@ class MyLoveViewController: UIViewController,UITableViewDataSource,UITableViewDe
         itemTableview.delegate=self
         itemTableview.dataSource=self
         itemTableview.header=MJRefreshNormalHeader(refreshingBlock: {
-            println("1")
+          
             self.itemTableview.header.endRefreshing()
         })
         itemTableview.footer=MJRefreshAutoGifFooter(refreshingBlock: {
-             println("1")
+           
              self.itemTableview.footer.endRefreshing()
         })
         itemTableview.header.beginRefreshing()
