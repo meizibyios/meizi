@@ -16,7 +16,7 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
         return UIColor(red: 232.0/255, green: 232.0/255, blue: 232.0/255, alpha: 1)
     }
     class func main_color()->UIColor {
-        return UIColor(red: 254.0/255, green: 208.0/255, blue: 9.0/255, alpha: 1)
+        return UIColor(red: 118.0/255, green: 174.0/255, blue: 51/255, alpha: 1)
     }
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -90,15 +90,34 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
                 reloadList()
             }
         case 2:
+            if !GlobalVariables.notInView()
+            {
+                 self.noticeInfo("建设中", autoClear: true, autoClearTime: 1)
+                break
+            }
             if source != 1
             {
                 source=1
                 reloadList()
             }
             
+        case 3:
+            self.noticeInfo("建设中", autoClear: true, autoClearTime: 1)
+            
+        case 4:
+            self.noticeInfo("建设中", autoClear: true, autoClearTime: 1)
+        case 5:
+//            self.noticeInfo("建设中", autoClear: true, autoClearTime: 1)
+                var storyboard=UIStoryboard(name: "Main", bundle: nil)
+                var vc = storyboard.instantiateViewControllerWithIdentifier("aboutme") as! UIViewController
+                self.presentViewController(
+                    vc, animated: true, completion: {
+                        
+                })
         default :break
         }
     }
+    
     func startMyLoveViewController(){// 我喜欢的 列表
         var storyboard=UIStoryboard(name: "Main", bundle: nil)
         var vc = storyboard.instantiateViewControllerWithIdentifier("MyLoveViewController") as! MyLoveViewController

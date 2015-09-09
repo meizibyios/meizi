@@ -54,6 +54,8 @@
 		CE2078041B96D99E00D6DD08 /* PulsingHaloLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2078011B96D99E00D6DD08 /* PulsingHaloLayer.m */; };
 		CE2078051B96D99E00D6DD08 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = CE2078021B96D99E00D6DD08 /* README.md */; };
 		CE8313831B9C141200C43048 /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8313821B9C141200C43048 /* GlobalVariables.swift */; };
+		CEAF8C571B9FF05800641EB5 /* SwiftNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAF8C561B9FF05800641EB5 /* SwiftNotice.swift */; };
+		CED3471B1BA00A1700B3489E /* AboutMeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED3471A1BA00A1700B3489E /* AboutMeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -145,6 +147,8 @@
 		CE2078011B96D99E00D6DD08 /* PulsingHaloLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PulsingHaloLayer.m; sourceTree = "<group>"; };
 		CE2078021B96D99E00D6DD08 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		CE8313821B9C141200C43048 /* GlobalVariables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalVariables.swift; sourceTree = "<group>"; };
+		CEAF8C561B9FF05800641EB5 /* SwiftNotice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftNotice.swift; sourceTree = "<group>"; };
+		CED3471A1BA00A1700B3489E /* AboutMeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutMeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -381,6 +385,7 @@
 			isa = PBXGroup;
 			children = (
 				CD99F51A1B944494009F7917 /* MyLoveViewController.swift */,
+				CED3471A1BA00A1700B3489E /* AboutMeViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -390,6 +395,7 @@
 			children = (
 				CDD21F241B8EF12000F0F6C0 /* QiniuUitl.swift */,
 				CDD21F261B8EF2AC00F0F6C0 /* QiniuUtiloc.h */,
+				CEAF8C561B9FF05800641EB5 /* SwiftNotice.swift */,
 				CDD21F271B8EF2AC00F0F6C0 /* QiniuUtiloc.m */,
 				CE8313821B9C141200C43048 /* GlobalVariables.swift */,
 			);
@@ -567,6 +573,7 @@
 				CD99F52D1B9476A8009F7917 /* UIImage+ImageEffects.m in Sources */,
 				CD99F52C1B9476A8009F7917 /* StoryViewController.m in Sources */,
 				CD99F5701B947831009F7917 /* UIView+MJExtension.m in Sources */,
+				CEAF8C571B9FF05800641EB5 /* SwiftNotice.swift in Sources */,
 				CD99F5641B947831009F7917 /* MJRefreshAutoNormalFooter.m in Sources */,
 				CD99F5611B947831009F7917 /* MJRefreshFooter.m in Sources */,
 				CE2078041B96D99E00D6DD08 /* PulsingHaloLayer.m in Sources */,
@@ -576,6 +583,7 @@
 				CDD21F281B8EF2AC00F0F6C0 /* QiniuUtiloc.m in Sources */,
 				CD99F55F1B947831009F7917 /* MJRefreshBackFooter.m in Sources */,
 				CD99F5681B947831009F7917 /* MJRefreshBackStateFooter.m in Sources */,
+				CED3471B1BA00A1700B3489E /* AboutMeViewController.swift in Sources */,
 				CE2078051B96D99E00D6DD08 /* README.md in Sources */,
 				CD99F5691B947831009F7917 /* MJRefreshGifHeader.m in Sources */,
 				CD99F5721B9480DD009F7917 /* MyLoveViewCell.swift in Sources */,

@@ -1,4 +1,4 @@
-//
+///
 //  GlobalVariables.swift
 //  meizi
 //
@@ -15,8 +15,6 @@ class GlobalVariables: NSObject {
     }
    
     class func getMyLovePlistPath()-> String{
-    
-
         var myloveplistPath1=NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true) ;
         var documentsDirectory: AnyObject = myloveplistPath1[0]
         var plistPath=documentsDirectory.stringByAppendingPathComponent("love")
@@ -29,6 +27,22 @@ class GlobalVariables: NSObject {
         
         return plistPath
     }
-    
+    class func notInView()-> Bool
+    {
+        var comdate=NSDateComponents()
+        comdate.month=9
+        comdate.year=2015
+        comdate.day=9
+        var caldate=NSCalendar(calendarIdentifier: NSGregorianCalendar)
+        var mydata=caldate?.dateFromComponents(comdate)
+        var nowdate=NSDate()
+        
+        nowdate.laterDate(mydata!)
+        if(nowdate.laterDate(mydata!).isEqual(nowdate))
+        {
+            return true
+        }
+        return false
+    }
    
 }
