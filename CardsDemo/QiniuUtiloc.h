@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "OCHeader.h"
 @interface QiniuUtiloc : NSObject
 +(NSString*)SHA1encode:(NSString*)value;
 +(NSString *)getXAPICloudAppKey;
++(UIImage *)getImageFromSD:(NSString *)key;
 @end

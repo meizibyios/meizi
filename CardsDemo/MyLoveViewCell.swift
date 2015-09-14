@@ -11,4 +11,5 @@ import UIKit
 class MyLoveViewCell: UITableViewCell {
 
     @IBOutlet weak var imageview: UIImageView!
+    
 }

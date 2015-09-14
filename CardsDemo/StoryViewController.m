@@ -9,7 +9,7 @@
 #import "StoryViewController.h"
 #import "ParallaxHeaderView.h"
 #import "StoryCommentCell.h"
-#import "OCHeader.h"
+#import "meizi-swift.h"
 @interface StoryViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *mainTableView;
 
@@ -46,6 +46,8 @@
              ParallaxHeaderView *headerView = [ParallaxHeaderView parallaxHeaderViewWithImage:image forSize:CGSizeMake(self.mainTableView.frame.size.width, 300)];
              headerView.headerTitleLabel.text = self.story[@"story"];
              [self.mainTableView setTableHeaderView:headerView];
+             UIGestureRecognizer *recognizer=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showImageClick)];
+             [headerView addGestureRecognizer:(recognizer)];
          }
      }];
     
@@ -137,4 +139,14 @@
         
     }];
 }
+-(void) showImageClick
+{
+//    PhotoBrowser *photoBrowser=[[PhotoBrowser alloc] init];
+//   Swift2OC showHost:(NSString * __nonnull) image:(UIImage * __nonnull) fromView:(UIView * __nonnull) fromVC:(UIViewController * __nonnull)
+}
+
+
+
+
+
 @end

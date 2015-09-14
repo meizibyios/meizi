@@ -6,9 +6,7 @@
 //  Copyright (c) 2015年 Muhammad Bassio. All rights reserved.
 //
 
-
 import UIKit
-
 class MyLoveViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
 
     
@@ -82,6 +80,8 @@ class MyLoveViewController: UIViewController,UITableViewDataSource,UITableViewDe
    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         startItemDetilViewController(itemArray.objectAtIndex(indexPath.row) as!String)
+        
+//        showHost(tableView, indexPath: indexPath, index: indexPath.row)
     }
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
@@ -106,6 +106,6 @@ class MyLoveViewController: UIViewController,UITableViewDataSource,UITableViewDe
         vc.imageUrl=imageUrl as String
         self.presentViewController(vc, animated: true,completion:nil);
     }
-
+   
     
 }

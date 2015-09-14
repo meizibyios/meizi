@@ -21,6 +21,7 @@
     NSMutableString* output = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
     for(int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++)
         [output appendFormat:@"%02x", digest[i]];
+    
     return output;
 }
 
@@ -37,5 +38,16 @@
         xappkey = [NSString stringWithFormat:@"%@.%@",[self SHA1encode:[NSString stringWithFormat:@"%@UZ%@UZ%@",ID,appKey,time]],time];
     
     return xappkey;
+}
+
++(UIImage *)getImageFromSD:(NSString *)key
+{
+    SDWebImageManager *manger=[SDWebImageManager sharedManager];
+    UIImage *cacheUIImage=[[manger imageCache] imageFromDiskCacheForKey:key];
+//    return  nil;
+    if (cacheUIImage) {
+        return cacheUIImage;
+    }
+    return  [UIImage imageNamed:@"AppIcon"];
 }
 @end

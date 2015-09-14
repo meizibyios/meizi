@@ -239,16 +239,16 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
             "num": "40"
         ]
         
+        
         Alamofire.request(.GET, "http://apis.baidu.com/txapi/mvtp/meinv?num=40", headers: headers,parameters:parameters
             )
             .responseJSON { _, _, Json, _ in
                 println(Json)
                 
-                let json=JSON(Json!)
+                let json=SwiftyJSON.JSON(Json!)
                 
                 for index in 0...38{
                     let item=json["\(index)"]
-                    
                     self.itemArray.addObject(PicItem(identifyorurl:item["picUrl"].string!, title:item["title"].string!, urlFrom:item["url"].string!, description:item["description"].string!))
                 }
                 self.reload()
@@ -260,9 +260,9 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
         Alamofire.request(.GET, GlobalVariables.loveBizhiUrl(pagenum), headers: nil,parameters:nil
             )
             .responseJSON { _, _, jSON, _ in
-                let json=JSON(jSON!)
+                let json=SwiftyJSON.JSON(jSON!)
                 
-                for(index: String,subjson: JSON) in json["data"]{
+                for(index: String,subjson: SwiftyJSON.JSON) in json["data"]{
                     self.itemArray.addObject(PicItem(identifyorurl:subjson["image"]["original"].string! ))
                 }
                 self.reload()
