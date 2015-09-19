@@ -8,9 +8,11 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "QiniuUtiloc.h"
 #import "MJRefresh.h"
-//#import "StoryViewController.h"
+#import "StoryViewController.h"
 #import "PulsingHaloLayer.h"
-@class StoryViewController;
+#import "CorePhotoBroswerVC/PhotoBroswerVC.h"
+#import "AFNetworking.h"
+//@class StoryViewController;
 #ifndef meizi_OC_Header_h//®
 #define meizi_OC_Header_h
 

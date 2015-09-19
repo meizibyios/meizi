@@ -12,7 +12,6 @@ class MyLoveViewController: UIViewController,UITableViewDataSource,UITableViewDe
     
     @IBAction func backClick(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: { () -> Void in
-            
         })
     }
     @IBOutlet weak var itemTableview: UITableView!
@@ -39,6 +38,7 @@ class MyLoveViewController: UIViewController,UITableViewDataSource,UITableViewDe
     }
     func initdata(){
         itemArray=NSMutableArray(contentsOfFile: GlobalVariables.getMyLovePlistPath())!.mutableCopy() as! NSMutableArray
+      
     }
     // tableveiew
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -60,8 +60,8 @@ class MyLoveViewController: UIViewController,UITableViewDataSource,UITableViewDe
         
 //        if cell.
 //        {
-          var  cell=MyLoveViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "MyLoveViewCellhead") as MyLoveViewCell
-            var imageview=UIImageView()
+          let  cell=MyLoveViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "MyLoveViewCellhead") as MyLoveViewCell
+            let imageview=UIImageView()
             var rect=self.view.frame
             rect.size.height=tableView.rowHeight
             imageview.frame=rect
@@ -79,7 +79,7 @@ class MyLoveViewController: UIViewController,UITableViewDataSource,UITableViewDe
     }
    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        startItemDetilViewController(itemArray.objectAtIndex(indexPath.row) as!String)
+        startItemDetilViewController(PicItem(identifyorurl: itemArray.objectAtIndex(indexPath.row) as!String))
         
 //        showHost(tableView, indexPath: indexPath, index: indexPath.row)
     }
@@ -91,7 +91,7 @@ class MyLoveViewController: UIViewController,UITableViewDataSource,UITableViewDe
         if editingStyle  == UITableViewCellEditingStyle.Delete
         {
             itemArray.removeObjectAtIndex(indexPath.row)
-            var array=NSMutableArray()
+            let array=NSMutableArray()
             array.addObject(indexPath)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Bottom)
             itemArray.writeToFile(GlobalVariables.getMyLovePlistPath(), atomically: true)
@@ -99,11 +99,11 @@ class MyLoveViewController: UIViewController,UITableViewDataSource,UITableViewDe
     }
     
     
-    func startItemDetilViewController(imageUrl:String )// 图片详情
+    func startItemDetilViewController(picItem:PicItem)// 图片详情
     {
-        var storyboard=UIStoryboard(name: "Main", bundle: nil)
-        var vc = storyboard.instantiateViewControllerWithIdentifier("StoryViewController") as! StoryViewController
-        vc.imageUrl=imageUrl as String
+        let storyboard=UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewControllerWithIdentifier("StoryViewController") as! StoryViewController
+        vc.picItem=picItem;
         self.presentViewController(vc, animated: true,completion:nil);
     }
    

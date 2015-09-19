@@ -59,7 +59,7 @@ enum NoticeType{
 class SwiftNotice: NSObject {
     
     static var windows = Array<UIWindow!>()
-    static let rv = UIApplication.sharedApplication().keyWindow?.subviews.first as! UIView!
+    static let rv = UIApplication.sharedApplication().keyWindow?.subviews.first as UIView!
     
     // fix https://github.com/johnlui/SwiftNotice/issues/2
     // thanks broccolii(https://github.com/broccolii) and his PR https://github.com/johnlui/SwiftNotice/pull/5

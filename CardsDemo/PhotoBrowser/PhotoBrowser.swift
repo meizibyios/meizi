@@ -18,11 +18,13 @@ class PhotoBrowser: UIViewController {
     /**  相册类型：请设置  */
     var photoType: PhotoType!
     
+    /**  是否显示总数  */
+    var isShowCount=true
     /**  相册数据  */
     var photoModels: [PhotoModel]!{didSet{collectionView.reloadData()}}
     
     /**  强制关闭一切信息显示: 仅仅针对ZoomAndDismissWithSingleTap模式有效  */
-    var hideMsgForZoomAndDismissWithSingleTap: Bool = false
+    var hideMsgForZoomAndDismissWithSingleTap: Bool = true
     
     lazy var pagecontrol = UIPageControl()
     
@@ -40,8 +42,7 @@ class PhotoBrowser: UIViewController {
     var isHiddenBar: Bool = false
     
     lazy var photoArchiverArr: [Int] = []
-
-    deinit{NSNotificationCenter.defaultCenter().removeObserver(self);println("deinit")}
+    deinit{NSNotificationCenter.defaultCenter().removeObserver(self);print("deinit")}
     
     lazy var hud: UILabel = {
         

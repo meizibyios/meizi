@@ -7,7 +7,7 @@
         <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModule="妹子" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModule="meizi" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -33,7 +33,7 @@
         <!--My Love View Controller-->
         <scene sceneID="7En-MH-OfX">
             <objects>
-                <viewController storyboardIdentifier="MyLoveViewController" id="0XI-27-7rM" customClass="MyLoveViewController" customModule="妹子" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MyLoveViewController" id="0XI-27-7rM" customClass="MyLoveViewController" customModule="meizi" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="N0A-Kp-ra6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -43,7 +43,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="left" restorationIdentifier="MyLoveViewCell" selectionStyle="default" indentationWidth="0.0" reuseIdentifier="MyLoveViewCell" rowHeight="230" id="1dZ-Cs-h6O" customClass="MyLoveViewCell" customModule="妹子" customModuleProvider="target">
+                                    <tableViewCell contentMode="left" restorationIdentifier="MyLoveViewCell" selectionStyle="default" indentationWidth="0.0" reuseIdentifier="MyLoveViewCell" rowHeight="230" id="1dZ-Cs-h6O" customClass="MyLoveViewCell" customModule="meizi" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="22" width="367" height="230"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1dZ-Cs-h6O" id="nKL-A0-juI">
@@ -87,7 +87,7 @@
         <!--About Me View Controller-->
         <scene sceneID="1bn-2K-6Pm">
             <objects>
-                <viewController storyboardIdentifier="aboutme" id="HFV-vm-bUO" customClass="AboutMeViewController" customModule="妹子" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="aboutme" id="HFV-vm-bUO" customClass="AboutMeViewController" customModule="meizi" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HHr-gs-gkv">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -163,7 +163,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WDy-Xv-Tfc" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="631" y="94"/>
+            <point key="canvasLocation" x="616" y="94"/>
         </scene>
     </scenes>
     <resources>

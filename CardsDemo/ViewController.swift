@@ -18,7 +18,7 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
     class func main_color()->UIColor {
         return UIColor(red: 118.0/255, green: 174.0/255, blue: 51/255, alpha: 1)
     }
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -26,6 +26,7 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
     var pagenum=0
     var itemArray:NSMutableArray=NSMutableArray()
     var source=0
+    var temp :String!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -37,10 +38,12 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
         self.swipeableView.delegate = self;
         addHaloLayer()
         getPicList()
+//        _=temp.isEmpty
+        
     }
     
     func addHaloLayer(){
-        var btn = UIButton(frame: CGRectMake(self.view.frame.width/2-50, self.swipeableView.frame.height+30, 100, 100))
+        let btn = UIButton(frame: CGRectMake(self.view.frame.width/2-50, self.swipeableView.frame.height+30, 100, 100))
         btn .setTitle("+", forState: UIControlState.Normal)
         btn.titleLabel?.font=UIFont .systemFontOfSize(18)
         //btn.backgroundColor = UIColor.blackColor()
@@ -65,14 +68,14 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
     func reload() {
         self.swipeableView.discardAllSwipeableViews()
         self.swipeableView.loadNextSwipeableViewsIfNeeded(true)
-        println(QiniuUtiloc.getXAPICloudAppKey())
+        print(QiniuUtiloc.getXAPICloudAppKey())
     }
     
     
     func generateColor() -> UIColor {
         var randomRed:CGFloat = CGFloat(drand48())
-        var randomGreen:CGFloat = CGFloat(drand48())
-        var randomBlue:CGFloat = CGFloat(drand48())
+        let randomGreen:CGFloat = CGFloat(drand48())
+        let randomBlue:CGFloat = CGFloat(drand48())
         return UIColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: 1.0)
     }
     func popMenuViewSelectIndex(index:NSInteger)
@@ -106,8 +109,8 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
             self.noticeInfo("建设中", autoClear: true, autoClearTime: 1)
         case 5:
 //            self.noticeInfo("建设中", autoClear: true, autoClearTime: 1)
-                var storyboard=UIStoryboard(name: "Main", bundle: nil)
-                var vc = storyboard.instantiateViewControllerWithIdentifier("aboutme") as! UIViewController
+                let storyboard=UIStoryboard(name: "Main", bundle: nil)
+                var vc = storyboard.instantiateViewControllerWithIdentifier("aboutme")
                 self.presentViewController(
                     vc, animated: true, completion: {
                         
@@ -117,7 +120,7 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
     }
     
     func startMyLoveViewController(){// 我喜欢的 列表
-        var storyboard=UIStoryboard(name: "Main", bundle: nil)
+        let storyboard=UIStoryboard(name: "Main", bundle: nil)
         var vc = storyboard.instantiateViewControllerWithIdentifier("MyLoveViewController") as! MyLoveViewController
         self.presentViewController(
             vc, animated: true, completion: {
@@ -167,7 +170,7 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
     }
     
     // MABCardsContainerDelegate
-    func containerViewDidSwipeLeft(containerView:MABCardsContainer, UIView) {}
+    func containerViewDidSwipeLeft(containerView:MABCardsContainer, _: UIView) {}
     func containerViewDidSwipeRight(containerView:MABCardsContainer, _ view:UIView) {
         var array=NSMutableArray(contentsOfFile: GlobalVariables.getMyLovePlistPath())
         var url=(view as! UIImageView).sd_imageURL().URLString
@@ -175,7 +178,7 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
         {
             array?.insertObject(url, atIndex: 0)
            var issuccess = array?.writeToFile(GlobalVariables.getMyLovePlistPath(), atomically: true)
-            println(issuccess)
+            print(issuccess)
         }
         var array1=NSMutableArray(contentsOfFile: GlobalVariables.getMyLovePlistPath())
         
@@ -200,10 +203,10 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
             
             imageView.contentMode=UIViewContentMode.ScaleAspectFit
             imageView.sd_setImageWithURL(NSURL(string:item.identify), completed: { (image, err, _, _) -> Void in
-                println(image)
+                print(image)
                 
                 if !(err==nil){
-                    println(err)
+                    print(err)
                 }else{
                     //                    imageView.frame=image.
                 }
@@ -240,33 +243,88 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
         ]
         
         
+//        Alamofire.request(.GET, "http://apis.baidu.com/txapi/mvtp/meinv?num=40", headers: headers,parameters:parameters
+//            )
+//            .responseJSON { _, _, Json, _ in
+//                println(Json)
+//                
+//                let json=SwiftyJSON.JSON(Json!)
+//                
+//                for index in 0...38{
+//                    let item=json["\(index)"]
+//                    self.itemArray.addObject(PicItem(identifyorurl:item["picUrl"].string!, title:item["title"].string!, urlFrom:item["url"].string!, description:item["description"].string!))
+//                }
+//                self.reload()
+//        }
         Alamofire.request(.GET, "http://apis.baidu.com/txapi/mvtp/meinv?num=40", headers: headers,parameters:parameters
-            )
-            .responseJSON { _, _, Json, _ in
-                println(Json)
-                
-                let json=SwiftyJSON.JSON(Json!)
-                
-                for index in 0...38{
-                    let item=json["\(index)"]
-                    self.itemArray.addObject(PicItem(identifyorurl:item["picUrl"].string!, title:item["title"].string!, urlFrom:item["url"].string!, description:item["description"].string!))
-                }
-                self.reload()
+            ).responseJSON { (_, _, result) -> Void in
+            let json=SwiftyJSON.JSON(result as! AnyObject)
+            
+            for index in 0...38{
+                let item=json["\(index)"]
+                self.itemArray.addObject(PicItem(identifyorurl:item["picUrl"].string!, title:item["title"].string!, urlFrom:item["url"].string!, description:item["description"].string!))
+            }
+            self.reload()
         }
+
         
     }
     
+    func requestUrl(urlString: String){
+        var url: NSURL = NSURL(string: urlString)!
+        let request: NSURLRequest = NSURLRequest(URL: url)
+        
+        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler:{
+            (response, data, error) -> Void in
+            
+            if (error != nil) {
+                //Handle Error here
+            }else{
+                //Handle data in NSData type
+            }
+            
+        })
+    }
     func getLovebizhiList(){
-        Alamofire.request(.GET, GlobalVariables.loveBizhiUrl(pagenum), headers: nil,parameters:nil
-            )
-            .responseJSON { _, _, jSON, _ in
-                let json=SwiftyJSON.JSON(jSON!)
-                
-                for(index: String,subjson: SwiftyJSON.JSON) in json["data"]{
-                    self.itemArray.addObject(PicItem(identifyorurl:subjson["image"]["original"].string! ))
-                }
-                self.reload()
+
+        
+        requestUrl("www.baidu.com")
+        if true
+        {
+            return
         }
+        
+        let manager=AFHTTPRequestOperationManager()
+        manager.GET("http://www.baidu.com", parameters: nil, success: { (AFHTTPRequestOperation, AnyObject) -> Void in
+            let a=AnyObject
+            }) { (AFHTTPRequestOperation, NSError) -> Void in
+                let b=NSError
+        }
+        
+//        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//        [manager GET:@"http://example.com/resources.json" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//            NSLog(@"JSON: %@", responseObject);
+//        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//            NSLog(@"Error: %@", error);
+//        }];
+        Alamofire.request(.GET, "http://www.baidu.com", parameters: ["foo": "bar"])
+            .response { request, response, data, error in
+                print(request)
+                print(response)
+                print(error)
+        }
+////        Alamofire.request(.GET, GlobalVariables.loveBizhiUrl(pagenum)).respon
+//        Alamofire.request(.GET, GlobalVariables.loveBizhiUrl(pagenum)).responseString { (a, b, result) -> Void in
+//            let json=SwiftyJSON.JSON(result.data!)
+//            
+//            for(index: _,subjson) in json["data"]{
+//                
+//                self.itemArray.addObject(PicItem(identifyorurl:subjson["image"]["original"].string! ))
+//            }
+//            self.reload()
+//        }
+
+
         pagenum++
     }
     
