@@ -48,6 +48,7 @@
 		CDD21F201B8E04EC00F0F6C0 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDD21F1F1B8E04EC00F0F6C0 /* SDWebImage.framework */; };
 		CDD21F251B8EF12000F0F6C0 /* QiniuUitl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD21F241B8EF12000F0F6C0 /* QiniuUitl.swift */; };
 		CDD21F281B8EF2AC00F0F6C0 /* QiniuUtiloc.m in Sources */ = {isa = PBXBuildFile; fileRef = CDD21F271B8EF2AC00F0F6C0 /* QiniuUtiloc.m */; };
+		CE1AD5561BAEABD100A5554C /* ThisUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1AD5551BAEABD100A5554C /* ThisUser.swift */; };
 		CE1E02F61B96CC3F0087056D /* FXBlurView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE1E02F51B96CC3F0087056D /* FXBlurView.framework */; };
 		CE2077FA1B96D93B00D6DD08 /* PulsingHalo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE2077F91B96D93B00D6DD08 /* PulsingHalo.framework */; };
 		CE2078031B96D99E00D6DD08 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = CE2077FE1B96D99E00D6DD08 /* LICENSE */; };
@@ -222,6 +223,7 @@
 		CDD21F241B8EF12000F0F6C0 /* QiniuUitl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QiniuUitl.swift; sourceTree = "<group>"; };
 		CDD21F261B8EF2AC00F0F6C0 /* QiniuUtiloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QiniuUtiloc.h; sourceTree = "<group>"; };
 		CDD21F271B8EF2AC00F0F6C0 /* QiniuUtiloc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QiniuUtiloc.m; sourceTree = "<group>"; };
+		CE1AD5551BAEABD100A5554C /* ThisUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThisUser.swift; sourceTree = "<group>"; };
 		CE1E02F51B96CC3F0087056D /* FXBlurView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FXBlurView.framework; path = "Pods/../build/Debug-iphoneos/FXBlurView.framework"; sourceTree = "<group>"; };
 		CE1E02F71B96CC4E0087056D /* PulsingHalo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PulsingHalo.framework; path = "Pods/../build/Debug-iphoneos/PulsingHalo.framework"; sourceTree = "<group>"; };
 		CE2077F91B96D93B00D6DD08 /* PulsingHalo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PulsingHalo.framework; path = "Pods/../build/Debug-iphoneos/PulsingHalo.framework"; sourceTree = "<group>"; };
@@ -538,6 +540,7 @@
 		CDD21F1C1B8DE86700F0F6C0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CE1AD5551BAEABD100A5554C /* ThisUser.swift */,
 				CDD21F1D1B8DE8A800F0F6C0 /* PicItem.swift */,
 			);
 			name = Model;
@@ -962,6 +965,7 @@
 				CEAC45E41BA66F410059CD52 /* NVActivityIndicatorAnimationBallBeat.swift in Sources */,
 				CEAC45C31BA66F410059CD52 /* Constraint.swift in Sources */,
 				CEAC45D51BA66F410059CD52 /* DiskFetcher.swift in Sources */,
+				CE1AD5561BAEABD100A5554C /* ThisUser.swift in Sources */,
 				CEA40CA91BA6BFA100135E30 /* OC2Swift.m in Sources */,
 				CEAF8C571B9FF05800641EB5 /* SwiftNotice.swift in Sources */,
 				CD99F5641B947831009F7917 /* MJRefreshAutoNormalFooter.m in Sources */,
@@ -1152,7 +1156,7 @@
 			baseConfigurationReference = 892D64461CF486EEA75806E9 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: zong ming qiao (RX47KT87K3)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1166,7 +1170,7 @@
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
 				);
 				PRODUCT_NAME = meizi;
-				PROVISIONING_PROFILE = "9ec3af9d-d659-48ac-bb92-1e9f8ab346ab";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = CardsDemo/OCHeader.h;
 			};
 			name = Debug;
@@ -1176,7 +1180,7 @@
 			baseConfigurationReference = 42DB60393C87C68A19513B94 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: zong ming qiao (RX47KT87K3)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1190,7 +1194,7 @@
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
 				);
 				PRODUCT_NAME = meizi;
-				PROVISIONING_PROFILE = "9ec3af9d-d659-48ac-bb92-1e9f8ab346ab";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = CardsDemo/OCHeader.h;
 			};
 			name = Release;

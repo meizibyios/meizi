@@ -79,8 +79,7 @@ class MyLoveViewController: UIViewController,UITableViewDataSource,UITableViewDe
     }
    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        startItemDetilViewController(itemArray.objectAtIndex(indexPath.row) as!String)
-        
+      startItemDetilViewController(PicItem(identifyorurl: itemArray.objectAtIndex(indexPath.row) as!String))
 //        showHost(tableView, indexPath: indexPath, index: indexPath.row)
     }
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -99,13 +98,12 @@ class MyLoveViewController: UIViewController,UITableViewDataSource,UITableViewDe
     }
     
     
-    func startItemDetilViewController(imageUrl:String )// 图片详情
+    func startItemDetilViewController(picItem:PicItem)// 图片详情
     {
-        var storyboard=UIStoryboard(name: "Main", bundle: nil)
-        var vc = storyboard.instantiateViewControllerWithIdentifier("StoryViewController") as! StoryViewController
-        vc.imageUrl=imageUrl as String
+        let storyboard=UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewControllerWithIdentifier("StoryViewController") as! StoryViewController
+        vc.picItem=picItem;
         self.presentViewController(vc, animated: true,completion:nil);
     }
-   
     
 }

@@ -8,11 +8,10 @@
 
 
 #import <UIKit/UIKit.h>
-#import "meizi-swift.h"
+//#import "meizi-swift.h"
 //@class meizi-swift;
 @interface StoryViewController : UIViewController
-@property NSString* imageUrl;
-@property PicItem *picItem;
+@property NSObject *picItem;
 - (IBAction)backClick:(id)sender;
 
 @end

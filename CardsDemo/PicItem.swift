@@ -15,7 +15,7 @@ class PicItem :NSObject{
     var picFromUser:String!// who upload  this pic , nil is form network
     var like:String!// the number like this pic
     var dislike:String!// the number dislike
-    var picSource:String="0"  //  love bizhi or api  or.... 0 default   1 api  2 lovebizhi
+    var picSource:String="2"  //  love bizhi or api  or.... 0 default   1 api  2 lovebizhi
     init (identifyorurl:String){
         self.identify=identifyorurl
     }

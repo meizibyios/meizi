@@ -23,14 +23,20 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
     }
     
     var swipeableView:MABCardsContainer!
-    var pagenum=0
+    var pagenum=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     var itemArray:NSMutableArray=NSMutableArray()
     var source=0
+    var type=1
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.view.backgroundColor = ViewController.bg_color()
         self.swipeableView = MABCardsContainer(frame: CGRectMake(20, 30, self.view.frame.width-40, self.view.frame.height-158))
+        if GlobalVariables.notInView()
+        {
+            type=3
+        }else
+        { type=2}
         self.swipeableView.setNeedsLayout()
         self.swipeableView.layoutIfNeeded()
         self.swipeableView.dataSource = self;
@@ -253,11 +259,9 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
                 }
                 self.reload()
         }
-        
     }
-    
     func getLovebizhiList(){
-        Alamofire.request(.GET, GlobalVariables.loveBizhiUrl(pagenum), headers: nil,parameters:nil
+        Alamofire.request(.GET, GlobalVariables.loveBizhiUrl(type,page: pagenum[type]), headers: nil,parameters:nil
             )
             .responseJSON { _, _, jSON, _ in
                 let json=SwiftyJSON.JSON(jSON!)
@@ -267,8 +271,32 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
                 }
                 self.reload()
         }
-        pagenum++
+        pagenum[type]++
     }
     
+    override func motionBegan(motion: UIEventSubtype, withEvent event: UIEvent) {
+        
+    }
+    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent) {
+        type=Int(arc4random_uniform(10))+1
+        if type==9// 9的位置是空的  爱壁纸里边  3 是魅力女性
+        {
+            source=1
+        }else
+        {
+            source=0
+        }
+        if !GlobalVariables.notInView()
+        {
+            if (type==9||type==3)
+            {
+                type=2
+                source=0
+            }
+            
+        }
+        reloadList()
+        
+    }
 }
 

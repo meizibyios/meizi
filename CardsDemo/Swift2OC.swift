@@ -40,6 +40,6 @@ class Swift2OC: NSObject {
         /**  set models  */
         pbVC.photoModels = models
         
-        pbVC.show(inVC: fromVC,index: 1)
+        pbVC.show(inVC: fromVC,index: 0)
     }
 }
