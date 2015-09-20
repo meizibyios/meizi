@@ -9,8 +9,8 @@
 import UIKit
 
 protocol MABCardsContainerDelegate {
-    func containerViewDidSwipeLeft(containerView:MABCardsContainer, _: UIView)
-    func containerViewDidSwipeRight(containerView:MABCardsContainer, _: UIView)
+    func containerViewDidSwipeLeft(containerView:MABCardsContainer, UIView)
+    func containerViewDidSwipeRight(containerView:MABCardsContainer, UIView)
     func containerViewDidStartSwipingCard(containerView:MABCardsContainer, card:UIView, location:CGPoint)
     func containerSwipingCard(containerView:MABCardsContainer, card:UIView, location:CGPoint, translation:CGPoint)
     func containerViewDidEndSwipingCard(containerView:MABCardsContainer, card:UIView, location:CGPoint)
@@ -55,8 +55,8 @@ class MABCardsContainer: UIView, UICollisionBehaviorDelegate, UIDynamicAnimatorD
     
     
     // Initialization Methods
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)!
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
         self.setup()
     }
     override init(frame: CGRect) {
@@ -83,10 +83,10 @@ class MABCardsContainer: UIView, UICollisionBehaviorDelegate, UIDynamicAnimatorD
         
     }
     func defaultCollisionRect() -> CGRect {
-        let viewSize = UIScreen.mainScreen().applicationFrame.size;
-        let collisionSizeScale:CGFloat = 6.0;
-        let collisionSize = CGSizeMake(viewSize.width * collisionSizeScale, viewSize.height * collisionSizeScale);
-        let collisionRect = CGRectMake((-collisionSize.width / 2) + (viewSize.width / 2), (-collisionSize.height / 2) + (viewSize.height / 2), collisionSize.width, collisionSize.height);
+        var viewSize = UIScreen.mainScreen().applicationFrame.size;
+        var collisionSizeScale:CGFloat = 6.0;
+        var collisionSize = CGSizeMake(viewSize.width * collisionSizeScale, viewSize.height * collisionSizeScale);
+        var collisionRect = CGRectMake((-collisionSize.width / 2) + (viewSize.width / 2), (-collisionSize.height / 2) + (viewSize.height / 2), collisionSize.width, collisionSize.height);
         return collisionRect;
     }
     
@@ -113,11 +113,11 @@ class MABCardsContainer: UIView, UICollisionBehaviorDelegate, UIDynamicAnimatorD
     
     func loadNextSwipeableViewsIfNeeded(animated:Bool) {
         
-        let numViews:NSInteger = self.containerView.subviews.count;
-        let newViews:NSMutableArray = NSMutableArray();
+        var numViews:NSInteger = self.containerView.subviews.count;
+        var newViews:NSMutableArray = NSMutableArray();
         
         for var i = numViews; i < numPrefetchedViews; i++ {
-            let nextView:UIView! = self.nextSwipeableView()
+            var nextView:UIView! = self.nextSwipeableView()
             if (nextView != nil) {
                 self.containerView.addSubview(nextView)
                 self.containerView.sendSubviewToBack(nextView)
@@ -127,13 +127,13 @@ class MABCardsContainer: UIView, UICollisionBehaviorDelegate, UIDynamicAnimatorD
         }
         
         if (animated) {
-            let maxDelay:NSTimeInterval = 0.3
-            let delayInNanoSec = dispatch_time(DISPATCH_TIME_NOW,Int64(maxDelay * Double(NSEC_PER_SEC)))
-            let delayStep:NSTimeInterval = maxDelay / NSTimeInterval(numPrefetchedViews)
+            var maxDelay:NSTimeInterval = 0.3
+            var delayInNanoSec = dispatch_time(DISPATCH_TIME_NOW,Int64(maxDelay * Double(NSEC_PER_SEC)))
+            var delayStep:NSTimeInterval = maxDelay / NSTimeInterval(numPrefetchedViews)
             var aggregatedDelay = maxDelay
-            let animationDuration = 0.25
+            var animationDuration = 0.25
             for var j = 0; j < newViews.count; j++ {
-                let view:UIView! = newViews[j] as! UIView
+                var view:UIView! = newViews[j] as! UIView
                 view.center = CGPointMake(view.center.x, -view.frame.size.height);
                 UIView.animateWithDuration(animationDuration, delay: aggregatedDelay, options: UIViewAnimationOptions.CurveEaseIn, animations: {
                     view.center = self.swipeableViewsCenter
@@ -153,12 +153,12 @@ class MABCardsContainer: UIView, UICollisionBehaviorDelegate, UIDynamicAnimatorD
         
         var topSwipeableView:UIView!
         if (self.containerView.subviews.count > 0) {
-            topSwipeableView = self.containerView.subviews.last
+            topSwipeableView = self.containerView.subviews.last as! UIView
         }
         if (topSwipeableView == nil) {return;}
         
         for var i = 0;i < self.containerView.subviews.count; i++ {
-            let cover = self.containerView.subviews[i] 
+            var cover = self.containerView.subviews[i] as! UIView
             cover.userInteractionEnabled = false;
         }
         topSwipeableView.userInteractionEnabled = true;
@@ -173,18 +173,18 @@ class MABCardsContainer: UIView, UICollisionBehaviorDelegate, UIDynamicAnimatorD
         
         if (self.isRotationEnabled) {
             // rotation
-            let numSwipeableViews = self.containerView.subviews.count;
+            var numSwipeableViews = self.containerView.subviews.count;
             if (numSwipeableViews >= 1) {
                 self.animator.removeBehavior(self.swipeableViewSnapBehavior)
-                self.swipeableViewSnapBehavior = self.snapBehaviorThatSnapView(self.containerView.subviews[numSwipeableViews-1] , point: self.swipeableViewsCenter)
+                self.swipeableViewSnapBehavior = self.snapBehaviorThatSnapView(self.containerView.subviews[numSwipeableViews-1] as! UIView, point: self.swipeableViewsCenter)
                 self.animator.addBehavior(self.swipeableViewSnapBehavior)
             }
-            let rotationCenterOffset = CGPointMake(0, CGRectGetHeight(topSwipeableView.frame) * self.rotationRelativeYOffsetFromCenter)
+            var rotationCenterOffset = CGPointMake(0, CGRectGetHeight(topSwipeableView.frame) * self.rotationRelativeYOffsetFromCenter)
             if (numSwipeableViews >= 2) {
-                self.rotateView(self.containerView.subviews[numSwipeableViews-2] , degree: Float(self.rotationDegree), offset: rotationCenterOffset , animated: true)
+                self.rotateView(self.containerView.subviews[numSwipeableViews-2] as! UIView, degree: Float(self.rotationDegree), offset: rotationCenterOffset , animated: true)
             }
             if (numSwipeableViews>=3) {
-                self.rotateView(self.containerView.subviews[numSwipeableViews-3] , degree: Float(-self.rotationDegree), offset: rotationCenterOffset , animated: true)
+                self.rotateView(self.containerView.subviews[numSwipeableViews-3] as! UIView, degree: Float(-self.rotationDegree), offset: rotationCenterOffset , animated: true)
             }
         }
     }
@@ -194,9 +194,9 @@ class MABCardsContainer: UIView, UICollisionBehaviorDelegate, UIDynamicAnimatorD
     
     func handlePan(recognizer:UIPanGestureRecognizer) {
         
-        let translation = recognizer.translationInView(self)
-        let location = recognizer.locationInView(self)
-        let swipeableView = recognizer.view
+        var translation = recognizer.translationInView(self)
+        var location = recognizer.locationInView(self)
+        var swipeableView = recognizer.view
         
         if (recognizer.state == UIGestureRecognizerState.Began) {
             self.createAnchorViewForCover(swipeableView!, location: location, shouldAttachToPoint: true)
@@ -214,21 +214,21 @@ class MABCardsContainer: UIView, UICollisionBehaviorDelegate, UIDynamicAnimatorD
         
         if(recognizer.state == UIGestureRecognizerState.Ended || recognizer.state == UIGestureRecognizerState.Cancelled) {
             
-            let velocity = recognizer.velocityInView(self)
-            let velocityMagnitude = sqrt(pow(velocity.x,2)+pow(velocity.y,2))
-            let normalizedVelocity = CGPointMake(velocity.x / velocityMagnitude, velocity.y / velocityMagnitude)
+            var velocity = recognizer.velocityInView(self)
+            var velocityMagnitude = sqrt(pow(velocity.x,2)+pow(velocity.y,2))
+            var normalizedVelocity = CGPointMake(velocity.x / velocityMagnitude, velocity.y / velocityMagnitude)
             if ((abs(translation.x) > self.relativeDisplacementThreshold*self.bounds.size.width //displacement
                 || velocityMagnitude > self.escapeVelocityThreshold)   //velocity
                 && (signum(translation.x)==signum(normalizedVelocity.x)) //sign X
                 && (signum(translation.y)==signum(normalizedVelocity.y)) //sign Y
                 && abs(normalizedVelocity.y) < 0.8) {    // confine veritcal direction
-                    let scale:CGFloat = velocityMagnitude > self.escapeVelocityThreshold ? velocityMagnitude:self.pushVelocityMagnitude
-                    let x2 = translation.x * translation.x
-                    let y2 = translation.y * translation.y
-                    let translationMagnitude = sqrtf(Float(x2)+Float(y2))
-                    let vx = Float(translation.x) / translationMagnitude * Float(scale)
-                    let vy = Float(translation.y) / translationMagnitude * Float(scale)
-                    let direction = CGVectorMake(CGFloat(vx), CGFloat(vy))
+                    var scale:CGFloat = velocityMagnitude > self.escapeVelocityThreshold ? velocityMagnitude:self.pushVelocityMagnitude
+                    var x2 = translation.x * translation.x
+                    var y2 = translation.y * translation.y
+                    var translationMagnitude = sqrtf(Float(x2)+Float(y2))
+                    var vx = Float(translation.x) / translationMagnitude * Float(scale)
+                    var vy = Float(translation.y) / translationMagnitude * Float(scale)
+                    var direction = CGVectorMake(CGFloat(vx), CGFloat(vy))
                     self.pushAnchorViewForCover(swipeableView!, direction: direction, collisionrect: self.collisionRect)
             }
             else {
@@ -250,52 +250,52 @@ class MABCardsContainer: UIView, UICollisionBehaviorDelegate, UIDynamicAnimatorD
     
     func swipeTopViewToLeft(left:Bool) {
         
-        let topSwipeableView = self.containerView.subviews.last
+        var topSwipeableView:UIView! = self.containerView.subviews.last as! UIView
         if (topSwipeableView == nil) {return;}
         
-        let location = CGPointMake(topSwipeableView!.center.x, topSwipeableView!.center.y*(1+self.manualSwipeRotationRelativeYOffsetFromCenter));
-        self.createAnchorViewForCover(topSwipeableView!, location: location, shouldAttachToPoint: true)
+        var location = CGPointMake(topSwipeableView.center.x, topSwipeableView.center.y*(1+self.manualSwipeRotationRelativeYOffsetFromCenter));
+        self.createAnchorViewForCover(topSwipeableView, location: location, shouldAttachToPoint: true)
         var dd = 1
         if (left) {
             dd = -1
         }
-        let direction = CGVectorMake(CGFloat(dd) * self.escapeVelocityThreshold, 0);
-        self.pushAnchorViewForCover(topSwipeableView!, direction: direction, collisionrect: self.collisionRect)
+        var direction = CGVectorMake(CGFloat(dd) * self.escapeVelocityThreshold, 0);
+        self.pushAnchorViewForCover(topSwipeableView, direction: direction, collisionrect: self.collisionRect)
         
     }
     
     func collisionBehaviorThatBoundsView(view:UIView!, rect:CGRect) -> UICollisionBehavior! {
         if (view == nil) {return nil;}
-        let collisionBehavior = UICollisionBehavior(items:[view])
-        let collisionBound = UIBezierPath(rect: rect)
+        var collisionBehavior = UICollisionBehavior(items:[view])
+        var collisionBound = UIBezierPath(rect: rect)
         collisionBehavior.addBoundaryWithIdentifier("c", forPath: collisionBound)
         collisionBehavior.collisionMode = UICollisionBehaviorMode.Boundaries;
         return collisionBehavior;
     }
     func pushBehaviorThatPushView(view:UIView!,direction:CGVector) -> UIPushBehavior! {
         if (view == nil) {return nil;}
-        let pushBehavior = UIPushBehavior(items: [view], mode: UIPushBehaviorMode.Instantaneous)
+        var pushBehavior = UIPushBehavior(items: [view], mode: UIPushBehaviorMode.Instantaneous)
         pushBehavior.pushDirection = direction;
         return pushBehavior;
     }
     func snapBehaviorThatSnapView(view:UIView!,point:CGPoint) -> UISnapBehavior! {
         if (view == nil) {return nil;}
-        let snapBehavior = UISnapBehavior(item: view, snapToPoint: point)
+        var snapBehavior = UISnapBehavior(item: view, snapToPoint: point)
         snapBehavior.damping = 0.75; /* Medium oscillation */
         return snapBehavior;
     }
     func attachmentBehaviorThatAnchorsView(aView:UIView!, anchorview:UIView) -> UIAttachmentBehavior! {
         if (aView == nil) {return nil;}
-        let anchorPoint = anchorview.center;
-        let p = self.convertPoint(aView.center, toView: self)
-        let attachment = UIAttachmentBehavior(item: aView, offsetFromCenter: UIOffsetMake(-(p.x-anchorPoint.x),-(p.y-anchorPoint.y)), attachedToItem: anchorview, offsetFromCenter: UIOffsetMake(0,0))
+        var anchorPoint = anchorview.center;
+        var p = self.convertPoint(aView.center, toView: self)
+        var attachment = UIAttachmentBehavior(item: aView, offsetFromCenter: UIOffsetMake(-(p.x-anchorPoint.x),-(p.y-anchorPoint.y)), attachedToItem: anchorview, offsetFromCenter: UIOffsetMake(0,0))
         attachment.length = 0;
         return attachment;
     }
     func attachmentBehaviorThatAnchorsView(aView:UIView!,aPoint:CGPoint) -> UIAttachmentBehavior! {
         if (aView == nil) {return nil;}
-        let p = aView.center;
-        let attachmentBehavior = UIAttachmentBehavior(item: aView, offsetFromCenter: UIOffsetMake(-(p.x-aPoint.x), -(p.y-aPoint.y)), attachedToAnchor: aPoint)
+        var p = aView.center;
+        var attachmentBehavior = UIAttachmentBehavior(item: aView, offsetFromCenter: UIOffsetMake(-(p.x-aPoint.x), -(p.y-aPoint.y)), attachedToAnchor: aPoint)
         attachmentBehavior.damping = 100;
         attachmentBehavior.length = 0;
         return attachmentBehavior;
@@ -309,12 +309,12 @@ class MABCardsContainer: UIView, UICollisionBehaviorDelegate, UIDynamicAnimatorD
         self.anchorView.backgroundColor = UIColor.blueColor()
         self.anchorView.hidden = !self.isAnchorViewVisiable
         self.anchorContainerView.addSubview(self.anchorView)
-        let attachToView = self.attachmentBehaviorThatAnchorsView(swipeableView, anchorview: self.anchorView)
+        var attachToView = self.attachmentBehaviorThatAnchorsView(swipeableView, anchorview: self.anchorView)
         self.animator.addBehavior(attachToView)
         self.swipeableViewAttachmentBehavior = attachToView;
         
         if (shouldAttachToPoint) {
-            let attachToPoint = self.attachmentBehaviorThatAnchorsView(swipeableView, aPoint: location)
+            var attachToPoint = self.attachmentBehaviorThatAnchorsView(swipeableView, aPoint: location)
             self.animator.addBehavior(attachToPoint)
             self.anchorViewAttachmentBehavior = attachToPoint;
         }
@@ -334,11 +334,11 @@ class MABCardsContainer: UIView, UICollisionBehaviorDelegate, UIDynamicAnimatorD
         //    NSLog(@"pushing cover to direction: %f, %f", direction.dx, direction.dy);
         self.animator.removeBehavior(self.anchorViewAttachmentBehavior)
         
-        let collisionBehavior = self.collisionBehaviorThatBoundsView(self.anchorView, rect: collisionrect)
+        var collisionBehavior = self.collisionBehaviorThatBoundsView(self.anchorView, rect: collisionrect)
         collisionBehavior.collisionDelegate = self;
         self.animator.addBehavior(collisionBehavior)
         
-        let pushBehavior = self.pushBehaviorThatPushView(self.anchorView,direction: direction)
+        var pushBehavior = self.pushBehaviorThatPushView(self.anchorView,direction: direction)
         self.animator.addBehavior(pushBehavior)
         
         self.reuseCoverContainerView.addSubview(self.anchorView)
@@ -352,27 +352,26 @@ class MABCardsContainer: UIView, UICollisionBehaviorDelegate, UIDynamicAnimatorD
     
     
     // MARK: UICollisionBehaviorDelegate
-    func collisionBehavior(behavior: UICollisionBehavior, endedContactForItem item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?) {
+    func collisionBehavior(behavior: UICollisionBehavior, endedContactForItem item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying) {
         
-        let viewsToRemove = NSMutableArray()
-        
-        for aBehavior  in self.animator.behaviors {
+        var viewsToRemove = NSMutableArray()
+        for aBehavior in self.animator.behaviors {
             if (aBehavior.isKindOfClass(UIAttachmentBehavior)) {
-                let items = (aBehavior as! UIAttachmentBehavior).items as NSArray
+                var items = aBehavior.items as NSArray
                 if (items.containsObject(item)) {
                     self.animator.removeBehavior(aBehavior as! UIAttachmentBehavior)
                     viewsToRemove.addObjectsFromArray(items as [AnyObject])
                 }
             }
             if (aBehavior.isKindOfClass(UIPushBehavior)) {
-                let items = (aBehavior as! UIAttachmentBehavior).items as NSArray
+                var items = aBehavior.items as NSArray
                 if (items.containsObject(item)) {
                     self.animator.removeBehavior(aBehavior as! UIPushBehavior)
                     viewsToRemove.addObjectsFromArray(items as [AnyObject])
                 }
             }
             if (aBehavior.isKindOfClass(UICollisionBehavior)) {
-                let items = (aBehavior as! UIAttachmentBehavior).items as NSArray
+                var items = aBehavior.items as NSArray
                 if (items.containsObject(item)) {
                     self.animator.removeBehavior(aBehavior as! UICollisionBehavior)
                     viewsToRemove.addObjectsFromArray(items as [AnyObject])
@@ -407,7 +406,7 @@ class MABCardsContainer: UIView, UICollisionBehaviorDelegate, UIDynamicAnimatorD
     func rotateView(view:UIView, degree:Float,offset:CGPoint, animated:Bool) {
         var duration = 0.4
         if (!animated) {duration = 0;}
-        let rotationRadian = self.degreesToRadians(degree)
+        var rotationRadian = self.degreesToRadians(degree)
         UIView.animateWithDuration(duration, animations: {
             view.center = self.swipeableViewsCenter
             var transform = CGAffineTransformMakeTranslation(offset.x, offset.y)

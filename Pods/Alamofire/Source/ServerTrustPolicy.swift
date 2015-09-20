@@ -24,8 +24,7 @@ import Foundation
 
 /// Responsible for managing the mapping of `ServerTrustPolicy` objects to a given host.
 public class ServerTrustPolicyManager {
-    /// The dictionary of policies mapped to a particular host.
-    public let policies: [String: ServerTrustPolicy]
+    let policies: [String: ServerTrustPolicy]
 
     /**
         Initializes the `ServerTrustPolicyManager` instance with the given policies.
@@ -35,25 +34,15 @@ public class ServerTrustPolicyManager {
         allows for scenarios such as using default evaluation for host1, certificate pinning for host2, public key 
         pinning for host3 and disabling evaluation for host4.
 
-        - parameter policies: A dictionary of all policies mapped to a particular host.
+        :param: policies A dictionary of all policies mapped to a particular host.
 
-        - returns: The new `ServerTrustPolicyManager` instance.
+        :returns: The new `ServerTrustPolicyManager` instance.
     */
     public init(policies: [String: ServerTrustPolicy]) {
         self.policies = policies
     }
 
-    /**
-        Returns the `ServerTrustPolicy` for the given host if applicable.
-
-        By default, this method will return the policy that perfectly matches the given host. Subclasses could override
-        this method and implement more complex mapping implementations such as wildcards.
-
-        - parameter host: The host to use when searching for a matching policy.
-
-        - returns: The server trust policy for the given host if found.
-    */
-    public func serverTrustPolicyForHost(host: String) -> ServerTrustPolicy? {
+    func serverTrustPolicyForHost(host: String) -> ServerTrustPolicy? {
         return policies[host]
     }
 }
@@ -70,7 +59,7 @@ extension NSURLSession {
             return objc_getAssociatedObject(self, &AssociatedKeys.ManagerKey) as? ServerTrustPolicyManager
         }
         set (manager) {
-            objc_setAssociatedObject(self, &AssociatedKeys.ManagerKey, manager, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKeys.ManagerKey, manager, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
         }
     }
 }
@@ -121,17 +110,17 @@ public enum ServerTrustPolicy {
     /**
         Returns all certificates within the given bundle with a `.cer` file extension.
 
-        - parameter bundle: The bundle to search for all `.cer` files.
+        :param: bundle The bundle to search for all `.cer` files.
 
-        - returns: All certificates within the given bundle.
+        :returns: All certificates within the given bundle.
     */
     public static func certificatesInBundle(bundle: NSBundle = NSBundle.mainBundle()) -> [SecCertificate] {
         var certificates: [SecCertificate] = []
 
-        for path in bundle.pathsForResourcesOfType(".cer", inDirectory: nil) {
+        for path in bundle.pathsForResourcesOfType(".cer", inDirectory: nil) as! [String] {
             if let
                 certificateData = NSData(contentsOfFile: path),
-                certificate = SecCertificateCreateWithData(nil, certificateData)
+                certificate = SecCertificateCreateWithData(nil, certificateData)?.takeRetainedValue()
             {
                 certificates.append(certificate)
             }
@@ -143,14 +132,14 @@ public enum ServerTrustPolicy {
     /**
         Returns all public keys within the given bundle with a `.cer` file extension.
 
-        - parameter bundle: The bundle to search for all `*.cer` files.
+        :param: bundle The bundle to search for all `*.cer` files.
 
-        - returns: All public keys within the given bundle.
+        :returns: All public keys within the given bundle.
     */
     public static func publicKeysInBundle(bundle: NSBundle = NSBundle.mainBundle()) -> [SecKey] {
         var publicKeys: [SecKey] = []
 
-        for certificate in certificatesInBundle(bundle) {
+        for certificate in certificatesInBundle(bundle: bundle) {
             if let publicKey = publicKeyForCertificate(certificate) {
                 publicKeys.append(publicKey)
             }
@@ -164,39 +153,32 @@ public enum ServerTrustPolicy {
     /**
         Evaluates whether the server trust is valid for the given host.
 
-        - parameter serverTrust: The server trust to evaluate.
-        - parameter host:        The host of the challenge protection space.
+        :param: serverTrust The server trust to evaluate.
+        :param: host        The host of the challenge protection space.
 
-        - returns: Whether the server trust is valid.
+        :returns: Whether the server trust is valid.
     */
     public func evaluateServerTrust(serverTrust: SecTrust, isValidForHost host: String) -> Bool {
         var serverTrustIsValid = false
 
         switch self {
         case let .PerformDefaultEvaluation(validateHost):
-            let policy = SecPolicyCreateSSL(true, validateHost ? host as CFString : nil)
-            SecTrustSetPolicies(serverTrust, [policy])
+            let policy = validateHost ? SecPolicyCreateSSL(1, host as CFString) : SecPolicyCreateBasicX509()
+            SecTrustSetPolicies(serverTrust, [policy.takeRetainedValue()])
 
             serverTrustIsValid = trustIsValid(serverTrust)
         case let .PinCertificates(pinnedCertificates, validateCertificateChain, validateHost):
             if validateCertificateChain {
-                let policy = SecPolicyCreateSSL(true, validateHost ? host as CFString : nil)
-                SecTrustSetPolicies(serverTrust, [policy])
+                let policy = validateHost ? SecPolicyCreateSSL(1, host as CFString) : SecPolicyCreateBasicX509()
+                SecTrustSetPolicies(serverTrust, [policy.takeRetainedValue()])
 
                 SecTrustSetAnchorCertificates(serverTrust, pinnedCertificates)
-                SecTrustSetAnchorCertificatesOnly(serverTrust, true)
+                SecTrustSetAnchorCertificatesOnly(serverTrust, 1)
 
                 serverTrustIsValid = trustIsValid(serverTrust)
             } else {
                 let serverCertificatesDataArray = certificateDataForTrust(serverTrust)
-
-                //======================================================================================================
-                // The following `[] +` is a temporary workaround for a Swift 2.0 compiler error. This workaround should
-                // be removed once the following radar has been resolved:
-                //   - http://openradar.appspot.com/radar?id=6082025006039040
-                //======================================================================================================
-
-                let pinnedCertificatesDataArray = certificateDataForCertificates([] + pinnedCertificates)
+                let pinnedCertificatesDataArray = certificateDataForCertificates(pinnedCertificates)
 
                 outerLoop: for serverCertificateData in serverCertificatesDataArray {
                     for pinnedCertificateData in pinnedCertificatesDataArray {
@@ -211,13 +193,14 @@ public enum ServerTrustPolicy {
             var certificateChainEvaluationPassed = true
 
             if validateCertificateChain {
-                let policy = SecPolicyCreateSSL(true, validateHost ? host as CFString : nil)
-                SecTrustSetPolicies(serverTrust, [policy])
+                let policy = validateHost ? SecPolicyCreateSSL(1, host as CFString) : SecPolicyCreateBasicX509()
+                SecTrustSetPolicies(serverTrust, [policy.takeRetainedValue()])
 
                 certificateChainEvaluationPassed = trustIsValid(serverTrust)
             }
 
             if certificateChainEvaluationPassed {
+                let serverKeys = ServerTrustPolicy.publicKeysForTrust(serverTrust)
                 outerLoop: for serverPublicKey in ServerTrustPolicy.publicKeysForTrust(serverTrust) as [AnyObject] {
                     for pinnedPublicKey in pinnedPublicKeys as [AnyObject] {
                         if serverPublicKey.isEqual(pinnedPublicKey) {
@@ -260,16 +243,15 @@ public enum ServerTrustPolicy {
         var certificates: [SecCertificate] = []
 
         for index in 0..<SecTrustGetCertificateCount(trust) {
-            if let certificate = SecTrustGetCertificateAtIndex(trust, index) {
-                certificates.append(certificate)
-            }
+            let certificate = SecTrustGetCertificateAtIndex(trust, index).takeUnretainedValue()
+            certificates.append(certificate)
         }
 
         return certificateDataForCertificates(certificates)
     }
 
     private func certificateDataForCertificates(certificates: [SecCertificate]) -> [NSData] {
-        return certificates.map { SecCertificateCopyData($0) as NSData }
+        return certificates.map { SecCertificateCopyData($0).takeRetainedValue() as NSData }
     }
 
     // MARK: - Private - Public Key Extraction
@@ -278,10 +260,9 @@ public enum ServerTrustPolicy {
         var publicKeys: [SecKey] = []
 
         for index in 0..<SecTrustGetCertificateCount(trust) {
-            if let
-                certificate = SecTrustGetCertificateAtIndex(trust, index),
-                publicKey = publicKeyForCertificate(certificate)
-            {
+            let certificate = SecTrustGetCertificateAtIndex(trust, index).takeUnretainedValue()
+
+            if let publicKey = publicKeyForCertificate(certificate) {
                 publicKeys.append(publicKey)
             }
         }
@@ -292,12 +273,12 @@ public enum ServerTrustPolicy {
     private static func publicKeyForCertificate(certificate: SecCertificate) -> SecKey? {
         var publicKey: SecKey?
 
-        let policy = SecPolicyCreateBasicX509()
-        var trust: SecTrust?
-        let trustCreationStatus = SecTrustCreateWithCertificates(certificate, policy, &trust)
+        let policy = SecPolicyCreateBasicX509().takeRetainedValue()
+        var unmanagedTrust: Unmanaged<SecTrust>?
+        let trustCreationStatus = SecTrustCreateWithCertificates(certificate, policy, &unmanagedTrust)
 
-        if let trust = trust where trustCreationStatus == errSecSuccess {
-            publicKey = SecTrustCopyPublicKey(trust)
+        if let trust = unmanagedTrust?.takeRetainedValue() where trustCreationStatus == errSecSuccess {
+            publicKey = SecTrustCopyPublicKey(trust).takeRetainedValue()
         }
 
         return publicKey

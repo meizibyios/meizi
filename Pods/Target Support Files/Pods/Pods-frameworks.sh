@@ -52,22 +52,16 @@ code_sign_if_enabled() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework 'Pods/AFNetworking.framework'
   install_framework 'Pods/Alamofire.framework'
-  install_framework 'Pods/FDFullscreenPopGesture.framework'
   install_framework 'Pods/FXBlurView.framework'
-  install_framework 'Pods/MKNetworkKit.framework'
-  install_framework 'Pods/Reachability.framework'
+  install_framework 'Pods/PulsingHalo.framework'
   install_framework 'Pods/SDWebImage.framework'
   install_framework 'Pods/SwiftyJSON.framework'
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework 'Pods/AFNetworking.framework'
   install_framework 'Pods/Alamofire.framework'
-  install_framework 'Pods/FDFullscreenPopGesture.framework'
   install_framework 'Pods/FXBlurView.framework'
-  install_framework 'Pods/MKNetworkKit.framework'
-  install_framework 'Pods/Reachability.framework'
+  install_framework 'Pods/PulsingHalo.framework'
   install_framework 'Pods/SDWebImage.framework'
   install_framework 'Pods/SwiftyJSON.framework'
 fi

@@ -62,33 +62,18 @@ extension Manager {
     // MARK: Request
 
     /**
-        Creates a download request for the specified method, URL string, parameters, parameter encoding, headers
-        and destination.
+        Creates a download request using the shared manager instance for the specified method and URL string.
 
-        If `startRequestsImmediately` is `true`, the request will have `resume()` called before being returned.
+        :param: method The HTTP method.
+        :param: URLString The URL string.
+        :param: headers The HTTP headers. `nil` by default.
+        :param: destination The closure used to determine the destination of the downloaded file.
 
-        - parameter method:      The HTTP method.
-        - parameter URLString:   The URL string.
-        - parameter parameters:  The parameters. `nil` by default.
-        - parameter encoding:    The parameter encoding. `.URL` by default.
-        - parameter headers:     The HTTP headers. `nil` by default.
-        - parameter destination: The closure used to determine the destination of the downloaded file.
-
-        - returns: The created download request.
+        :returns: The created download request.
     */
-    public func download(
-        method: Method,
-        _ URLString: URLStringConvertible,
-        parameters: [String: AnyObject]? = nil,
-        encoding: ParameterEncoding = .URL,
-        headers: [String: String]? = nil,
-        destination: Request.DownloadFileDestination)
-        -> Request
-    {
+    public func download(method: Method, _ URLString: URLStringConvertible, headers: [String: String]? = nil, destination: Request.DownloadFileDestination) -> Request {
         let mutableURLRequest = URLRequest(method, URLString, headers: headers)
-        let encodedURLRequest = encoding.encode(mutableURLRequest, parameters: parameters).0
-
-        return download(encodedURLRequest, destination: destination)
+        return download(mutableURLRequest, destination: destination)
     }
 
     /**
@@ -96,10 +81,10 @@ extension Manager {
 
         If `startRequestsImmediately` is `true`, the request will have `resume()` called before being returned.
 
-        - parameter URLRequest:  The URL request
-        - parameter destination: The closure used to determine the destination of the downloaded file.
+        :param: URLRequest The URL request
+        :param: destination The closure used to determine the destination of the downloaded file.
 
-        - returns: The created download request.
+        :returns: The created download request.
     */
     public func download(URLRequest: URLRequestConvertible, destination: Request.DownloadFileDestination) -> Request {
         return download(.Request(URLRequest.URLRequest), destination: destination)
@@ -112,12 +97,10 @@ extension Manager {
 
         If `startRequestsImmediately` is `true`, the request will have `resume()` called before being returned.
 
-        - parameter resumeData:  The resume data. This is an opaque data blob produced by `NSURLSessionDownloadTask` 
-                                 when a task is cancelled. See `NSURLSession -downloadTaskWithResumeData:` for 
-                                 additional information.
-        - parameter destination: The closure used to determine the destination of the downloaded file.
+        :param: resumeData The resume data. This is an opaque data blob produced by `NSURLSessionDownloadTask` when a task is cancelled. See `NSURLSession -downloadTaskWithResumeData:` for additional information.
+        :param: destination The closure used to determine the destination of the downloaded file.
 
-        - returns: The created download request.
+        :returns: The created download request.
     */
     public func download(resumeData: NSData, destination: Request.DownloadFileDestination) -> Request {
         return download(.ResumeData(resumeData), destination: destination)
@@ -128,31 +111,23 @@ extension Manager {
 
 extension Request {
     /**
-        A closure executed once a request has successfully completed in order to determine where to move the temporary 
-        file written to during the download process. The closure takes two arguments: the temporary file URL and the URL 
-        response, and returns a single argument: the file URL where the temporary file should be moved.
+        A closure executed once a request has successfully completed in order to determine where to move the temporary file written to during the download process. The closure takes two arguments: the temporary file URL and the URL response, and returns a single argument: the file URL where the temporary file should be moved.
     */
     public typealias DownloadFileDestination = (NSURL, NSHTTPURLResponse) -> NSURL
 
     /**
-        Creates a download file destination closure which uses the default file manager to move the temporary file to a 
-        file URL in the first available directory with the specified search path directory and search path domain mask.
+        Creates a download file destination closure which uses the default file manager to move the temporary file to a file URL in the first available directory with the specified search path directory and search path domain mask.
 
-        - parameter directory: The search path directory. `.DocumentDirectory` by default.
-        - parameter domain:    The search path domain mask. `.UserDomainMask` by default.
+        :param: directory The search path directory. `.DocumentDirectory` by default.
+        :param: domain The search path domain mask. `.UserDomainMask` by default.
 
-        - returns: A download file destination closure.
+        :returns: A download file destination closure.
     */
-    public class func suggestedDownloadDestination(
-        directory directory: NSSearchPathDirectory = .DocumentDirectory,
-        domain: NSSearchPathDomainMask = .UserDomainMask)
-        -> DownloadFileDestination
-    {
-        return { temporaryURL, response -> NSURL in
-            let directoryURLs = NSFileManager.defaultManager().URLsForDirectory(directory, inDomains: domain)
+    public class func suggestedDownloadDestination(directory: NSSearchPathDirectory = .DocumentDirectory, domain: NSSearchPathDomainMask = .UserDomainMask) -> DownloadFileDestination {
 
-            if !directoryURLs.isEmpty {
-                return directoryURLs[0].URLByAppendingPathComponent(response.suggestedFilename!)
+        return { temporaryURL, response -> NSURL in
+            if let directoryURL = NSFileManager.defaultManager().URLsForDirectory(directory, inDomains: domain)[0] as? NSURL {
+                return directoryURL.URLByAppendingPathComponent(response.suggestedFilename!)
             }
 
             return temporaryURL
@@ -189,36 +164,22 @@ extension Request {
 
         // MARK: Delegate Methods
 
-        func URLSession(
-            session: NSURLSession,
-            downloadTask: NSURLSessionDownloadTask,
-            didFinishDownloadingToURL location: NSURL)
-        {
+        func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didFinishDownloadingToURL location: NSURL) {
             if let downloadTaskDidFinishDownloadingToURL = downloadTaskDidFinishDownloadingToURL {
-                do {
-                    let destination = downloadTaskDidFinishDownloadingToURL(session, downloadTask, location)
-                    try NSFileManager.defaultManager().moveItemAtURL(location, toURL: destination)
-                } catch {
-                    self.error = error as NSError
+                let destination = downloadTaskDidFinishDownloadingToURL(session, downloadTask, location)
+                var fileManagerError: NSError?
+
+                NSFileManager.defaultManager().moveItemAtURL(location, toURL: destination, error: &fileManagerError)
+
+                if fileManagerError != nil {
+                    error = fileManagerError
                 }
             }
         }
 
-        func URLSession(
-            session: NSURLSession,
-            downloadTask: NSURLSessionDownloadTask,
-            didWriteData bytesWritten: Int64,
-            totalBytesWritten: Int64,
-            totalBytesExpectedToWrite: Int64)
-        {
+        func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
             if let downloadTaskDidWriteData = downloadTaskDidWriteData {
-                downloadTaskDidWriteData(
-                    session,
-                    downloadTask,
-                    bytesWritten,
-                    totalBytesWritten, 
-                    totalBytesExpectedToWrite
-                )
+                downloadTaskDidWriteData(session, downloadTask, bytesWritten, totalBytesWritten, totalBytesExpectedToWrite)
             } else {
                 progress.totalUnitCount = totalBytesExpectedToWrite
                 progress.completedUnitCount = totalBytesWritten
@@ -227,12 +188,7 @@ extension Request {
             }
         }
 
-        func URLSession(
-            session: NSURLSession,
-            downloadTask: NSURLSessionDownloadTask,
-            didResumeAtOffset fileOffset: Int64,
-            expectedTotalBytes: Int64)
-        {
+        func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didResumeAtOffset fileOffset: Int64, expectedTotalBytes: Int64) {
             if let downloadTaskDidResumeAtOffset = downloadTaskDidResumeAtOffset {
                 downloadTaskDidResumeAtOffset(session, downloadTask, fileOffset, expectedTotalBytes)
             } else {

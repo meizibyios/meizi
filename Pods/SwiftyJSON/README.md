@@ -57,7 +57,7 @@ With SwiftyJSON all you have to do is:
 ```swift
 
 let json = JSON(data: dataFromNetworking)
-if let userName = json[0]["user"]["name"].string {
+if let userName = json[0]["user"]["name"].string{
   //Now you got your value
 }
 
@@ -68,7 +68,7 @@ And don't worry about the Optional Wrapping thing. It's done for you automatical
 ```swift
 
 let json = JSON(data: dataFromNetworking)
-if let userName = json[999999]["wrong_key"]["wrong_name"].string {
+if let userName = json[999999]["wrong_key"]["wrong_name"].string{
     //Calm down, take it easy, the ".string" property still produces the correct Optional String type with safety
 } else {
     //Print the error
@@ -80,7 +80,7 @@ if let userName = json[999999]["wrong_key"]["wrong_name"].string {
 ## Requirements
 
 - iOS 7.0+ / Mac OS X 10.9+
-- Xcode 7
+- Xcode 6.3
 
 ##Integration
 
@@ -91,15 +91,15 @@ platform :ios, '8.0'
 use_frameworks!
 
 target 'MyApp' do
-	pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
+    pod 'SwiftyJSON', '~> 2.2.1'
 end
 ```
-Note that this requires CocoaPods version 36, and your iOS deployment target to be at least 8.0:
+Note that it needs you to install CocoaPods 36 version, and requires your iOS deploy target >= 8.0:
 
 ####Carthage (iOS 8+, OS X 10.9+)
 You can use [Carthage](https://github.com/Carthage/Carthage) to install `SwiftyJSON` by adding it to your `Cartfile`:
 ```
-github "SwiftyJSON/SwiftyJSON"
+github "SwiftyJSON/SwiftyJSON" >= 2.2.1
 ```
 
 ####Manually (iOS 7+, OS X 10.9+)
@@ -157,7 +157,7 @@ let name = json[keys].string
 ####Loop
 ```swift
 //If json is .Dictionary
-for (key,subJson):(String, JSON) in json {
+for (key: String, subJson: JSON) in json {
    //Do something you want
 }
 ```
@@ -165,19 +165,19 @@ for (key,subJson):(String, JSON) in json {
 ```swift
 //If json is .Array
 //The `index` is 0..<json.count's string value
-for (key,subJson):(String, JSON) in json {
+for (index: String, subJson: JSON) in json {
     //Do something you want
 }
 ```
 ####Error
 Use a subscript to get/set a value in an Array or Dictionary
 
-If the JSON is:
+If the json is:
 *  an array, the app may crash with "index out-of-bounds."
-*  a dictionary, it will be assigned `nil` without a reason.
+*  a dictionary, it will get `nil` without a reason.
 *  not an array or a dictionary, the app may crash with an "unrecognised selector" exception.
 
-This will never happen in SwiftyJSON.
+It will never happen in SwiftyJSON.
 
 ```swift
 let json = JSON(["name", "age"])

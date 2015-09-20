@@ -16,8 +16,8 @@ class MABCardView: UIView {
     self.setup()
   }
 
-  required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)!
+  required init(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
     self.setup()
   }
   
@@ -35,7 +35,7 @@ class MABCardView: UIView {
 //    
 //    self.layer.cornerRadius = 10
 
-    let imageView=UIImageView(frame: self.layer.bounds)
+    var imageView=UIImageView(frame: self.layer.bounds)
     var urll=NSURL.fileURLWithPath(self.url)
 //    imageView.setImageWithURL(urll!)
     self.addSubview(imageView)

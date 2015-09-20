@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/Alamofire/Alamofire.svg)](https://travis-ci.org/Alamofire/Alamofire)
 [![Cocoapods Compatible](https://img.shields.io/cocoapods/v/Alamofire.svg)](https://img.shields.io/cocoapods/v/Alamofire.svg)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![License](https://img.shields.io/cocoapods/l/Alamofire.svg?style=flat&color=gray)](http://cocoadocs.org/docsets/Alamofire)
 [![Platform](https://img.shields.io/cocoapods/p/Alamofire.svg?style=flat)](http://cocoadocs.org/docsets/Alamofire)
 [![Twitter](https://img.shields.io/badge/twitter-@AlamofireSF-blue.svg?style=flat)](http://twitter.com/AlamofireSF)
 
@@ -24,12 +25,8 @@ Alamofire is an HTTP networking library written in Swift.
 
 ## Requirements
 
-- iOS 8.0+ / Mac OS X 10.9+ / watchOS 2
-- Xcode 7.0+
-
-## Migration Guides
-
-- [Alamofire 2.0 Migration Guide](https://github.com/Alamofire/Alamofire/blob/master/Documentation/Alamofire%202.0%20Migration%20Guide.md)
+- iOS 7.0+ / Mac OS X 10.9+
+- Xcode 6.4
 
 ## Communication
 
@@ -41,15 +38,15 @@ Alamofire is an HTTP networking library written in Swift.
 
 ## Installation
 
-> **Embedded frameworks require a minimum deployment target of iOS 8 or OS X Mavericks (10.9).**
+> **Embedded frameworks require a minimum deployment target of iOS 8 or OS X Mavericks.**
 >
-> Alamofire is no longer supported on iOS 7 due to the lack of support for frameworks. Without frameworks, running Travis-CI against iOS 7 would require a second duplicated test target. The separate test suite would need to import all the Swift files and the tests would need to be duplicated and re-written. This split would be too difficult to maintain to ensure the highest possible quality of the Alamofire ecosystem.
+> To use Alamofire with a project targeting iOS 7, you must include all Swift files located inside the `Source` directory directly in your project. See the ['Source File'](#source-file) section for additional instructions.
 
 ### CocoaPods
 
 [CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects.
 
-CocoaPods 0.38.2 is required to build Alamofire on the `swift-2.0` branch. It adds support for Xcode 7, Swift 2.0 and embedded frameworks. You can install it with the following command:
+CocoaPods 0.36 adds supports for Swift and embedded frameworks. You can install it with the following command:
 
 ```bash
 $ gem install cocoapods
@@ -62,7 +59,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'Alamofire', '~> 2.0'
+pod 'Alamofire', '~> 1.3'
 ```
 
 Then, run the following command:
@@ -85,7 +82,7 @@ $ brew install carthage
 To integrate Alamofire into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "Alamofire/Alamofire" ~> 2.0
+github "Alamofire/Alamofire" >= 1.3
 ```
 
 ### Manually
@@ -118,7 +115,11 @@ $ git submodule add https://github.com/Alamofire/Alamofire.git
 
 - And that's it!
 
-> The `Alamofire.framework` is automagically added as a target dependency, linked framework and embedded framework in a copy files build phase which is all you need to build on the simulator and a device.> > 
+> The `Alamofire.framework` is automagically added as a target dependency, linked framework and embedded framework in a copy files build phase which is all you need to build on the simulator and a device.
+
+#### Source File
+
+For application targets that do not support embedded frameworks, such as iOS 7, Alamofire can be integrated by adding all the Swift files located inside the `Source` directory (`Source/*.swift`) directly into your project. Note that you will no longer need to `import Alamofire` since you are not actually loading a framework. Additionally, any of the calling conventions described in the ['Usage'](#usage) section with the `Alamofire` prefix would instead omit it (for example, `Alamofire.request` becomes `request`), since this functionality is incorporated into the top-level namespace.
 
 ---
 
@@ -137,9 +138,9 @@ Alamofire.request(.GET, "http://httpbin.org/get")
 ```swift
 Alamofire.request(.GET, "http://httpbin.org/get", parameters: ["foo": "bar"])
          .response { request, response, data, error in
-              print(request)
-              print(response)
-              print(error)
+              println(request)
+              println(response)
+              println(error)
           }
 ```
 
@@ -160,9 +161,8 @@ Alamofire.request(.GET, "http://httpbin.org/get", parameters: ["foo": "bar"])
 
 ```swift
 Alamofire.request(.GET, "http://httpbin.org/get")
-         .responseString { _, _, result in
-             print("Success: \(result.isSuccess)")
-             print("Response String: \(result.value)")
+         .responseString { _, _, string, _ in
+             println(string)
          }
 ```
 
@@ -170,9 +170,8 @@ Alamofire.request(.GET, "http://httpbin.org/get")
 
 ```swift
 Alamofire.request(.GET, "http://httpbin.org/get")
-         .responseJSON { _, _, result in
-             print(result)
-             debugPrint(result)
+         .responseJSON { _, _, JSON, _ in
+             println(JSON)
          }
 ```
 
@@ -182,11 +181,11 @@ Response handlers can even be chained:
 
 ```swift
 Alamofire.request(.GET, "http://httpbin.org/get")
-         .responseString { _, _, result in
-             print("Response String: \(result.value)")
+         .responseString { _, _, string, _ in
+             println(string)
          }
-         .responseJSON { _, _, result in
-             print("Response JSON: \(result.value)")
+         .responseJSON { _, _, JSON, _ in
+             println(JSON)
          }
 ```
 
@@ -196,7 +195,15 @@ Alamofire.request(.GET, "http://httpbin.org/get")
 
 ```swift
 public enum Method: String {
-    case OPTIONS, GET, HEAD, POST, PUT, PATCH, DELETE, TRACE, CONNECT
+    case OPTIONS = "OPTIONS"
+    case GET = "GET"
+    case HEAD = "HEAD"
+    case POST = "POST"
+    case PUT = "PUT"
+    case PATCH = "PATCH"
+    case DELETE = "DELETE"
+    case TRACE = "TRACE"
+    case CONNECT = "CONNECT"
 }
 ```
 
@@ -243,7 +250,6 @@ Parameters can also be encoded as JSON, Property List, or any custom format, usi
 ```swift
 enum ParameterEncoding {
     case URL
-    case URLEncodedInURL
     case JSON
     case PropertyList(format: NSPropertyListFormat, options: NSPropertyListWriteOptions)
     case Custom((URLRequestConvertible, [String: AnyObject]?) -> (NSMutableURLRequest, NSError?))
@@ -254,7 +260,6 @@ enum ParameterEncoding {
 ```
 
 - `URL`: A query string to be set as or appended to any existing URL query for `GET`, `HEAD`, and `DELETE` requests, or set as the body for requests with any other HTTP method. The `Content-Type` HTTP header field of an encoded request with HTTP body is set to `application/x-www-form-urlencoded`. _Since there is no published specification for how to encode collection types, Alamofire follows the convention of appending `[]` to the key for array values (`foo[]=1&foo[]=2`), and appending the key surrounded by square brackets for nested dictionary values (`foo[bar]=baz`)._
-- `URLEncodedInURL`: Creates query string to be set as or appended to any existing URL query. Uses the same implementation as the `.URL` case, but always applies the encoded result to the URL.
 - `JSON`: Uses `NSJSONSerialization` to create a JSON representation of the parameters object, which is set as the body of the request. The `Content-Type` HTTP header field of an encoded request is set to `application/json`.
 - `PropertyList`: Uses `NSPropertyListSerialization` to create a plist representation of the parameters object, according to the associated format and write options values, which is set as the body of the request. The `Content-Type` HTTP header field of an encoded request is set to `application/x-plist`.
 - `Custom`: Uses the associated closure value to construct a new request given an existing request and parameters.
@@ -297,8 +302,8 @@ let headers = [
 ]
 
 Alamofire.request(.GET, "http://httpbin.org/get", headers: headers)
-         .responseJSON { _, _, result in
-             debugPrint(result)
+         .responseJSON { _, _, JSON, _ in
+             println(JSON)
          }
 ```
 
@@ -327,16 +332,10 @@ Alamofire.upload(.POST, "http://httpbin.org/post", file: fileURL)
 ```swift
 Alamofire.upload(.POST, "http://httpbin.org/post", file: fileURL)
          .progress { bytesWritten, totalBytesWritten, totalBytesExpectedToWrite in
-             print(totalBytesWritten)
-
-             // This closure is NOT called on the main queue for performance
-             // reasons. To update your ui, dispatch to the main queue.
-             dispatch_async(dispatch_get_main_queue) {
-                 print("Total bytes written on main queue: \(totalBytesWritten)")
-             }
+             println(totalBytesWritten)
          }
-         .responseJSON { request, response, result in
-             debugPrint(result)
+         .responseJSON { request, response, JSON, error in
+             println(JSON)
          }
 ```
 
@@ -353,11 +352,11 @@ Alamofire.upload(
     encodingCompletion: { encodingResult in
     	switch encodingResult {
     	case .Success(let upload, _, _):
-            upload.responseJSON { request, response, result in
-                debugPrint(result)
+            upload.responseJSON { request, response, JSON, error in
+                println(JSON)
             }
     	case .Failure(let encodingError):
-    	    print(encodingError)
+    	    println(encodingError)
     	}
     }
 )
@@ -396,49 +395,11 @@ Alamofire.download(.GET, "http://httpbin.org/stream/100", destination: destinati
 ```swift
 Alamofire.download(.GET, "http://httpbin.org/stream/100", destination: destination)
          .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
-             print(totalBytesRead)
-
-             // This closure is NOT called on the main queue for performance
-             // reasons. To update your ui, dispatch to the main queue.
-             dispatch_async(dispatch_get_main_queue) {
-                 print("Total bytes read on main queue: \(totalBytesRead)")
-             }
+             println(totalBytesRead)
          }
          .response { request, response, _, error in
-             print(response)
+             println(response)
          }
-```
-
-#### Accessing Resume Data for Failed Downloads
-
-```swift
-Alamofire.download(.GET, "http://httpbin.org/stream/100", destination: destination)
-         .response { request, response, data, error in
-             if let
-                 data = data,
-                 resumeDataString = NSString(data: data, encoding: NSUTF8StringEncoding)
-             {
-                 print("Resume Data: \(resumeDataString)")
-             } else {
-                 print("Resume Data was empty")
-             }
-         }
-```
-
-> The `data` parameter is automatically populated with the `resumeData` if available.
-
-```swift
-let download = Alamofire.download(.GET, "http://httpbin.org/stream/100", destination: destination)
-download.response { request, response, data, error in
-    if let
-        resumeData = download.resumeData,
-        resumeDataString = NSString(data: data, encoding: NSUTF8StringEncoding)
-    {
-        print("Resume Data: \(resumeDataString)")
-    } else {
-        print("Resume Data was empty")
-    }
-}
 ```
 
 ### Authentication
@@ -463,7 +424,7 @@ let password = "password"
 Alamofire.request(.GET, "https://httpbin.org/basic-auth/\(user)/\(password)")
          .authenticate(user: user, password: password)
          .response { request, response, _, error in
-             print(response)
+             println(response)
          }
 ```
 
@@ -479,8 +440,8 @@ let base64Credentials = credentialData.base64EncodedStringWithOptions(nil)
 let headers = ["Authorization": "Basic \(base64Credentials)"]
 
 Alamofire.request(.GET, "http://httpbin.org/basic-auth/user/password", headers: headers)
-         .responseJSON { _, _, result in
-             print(result)
+         .responseJSON { _, _, JSON, _ in
+             println(JSON)
          }
 ```
 
@@ -495,7 +456,7 @@ let credential = NSURLCredential(user: user, password: password, persistence: .F
 Alamofire.request(.GET, "https://httpbin.org/basic-auth/\(user)/\(password)")
          .authenticate(usingCredential: credential)
          .response { request, response, _, error in
-             print(response)
+             println(response)
          }
 ```
 
@@ -510,7 +471,7 @@ Alamofire.request(.GET, "http://httpbin.org/get", parameters: ["foo": "bar"])
          .validate(statusCode: 200..<300)
          .validate(contentType: ["application/json"])
          .response { _, _, _, error in
-             print(error)
+             println(error)
          }
 ```
 
@@ -521,13 +482,8 @@ Automatically validates status code within `200...299` range, and that the `Cont
 ```swift
 Alamofire.request(.GET, "http://httpbin.org/get", parameters: ["foo": "bar"])
          .validate()
-         .responseJSON { _, _, result in
-             switch result {
-             case .Success:
-                 print("Validation Successful")
-             case .Failure(_, let error):
-                 print(error)
-             }
+         .response { _, _, _, error in
+             println(error)
          }
 ```
 
@@ -536,7 +492,7 @@ Alamofire.request(.GET, "http://httpbin.org/get", parameters: ["foo": "bar"])
 ```swift
 let request = Alamofire.request(.GET, "http://httpbin.org/ip")
 
-print(request)
+println(request)
 // GET http://httpbin.org/ip (200)
 ```
 
@@ -545,7 +501,7 @@ print(request)
 ```swift
 let request = Alamofire.request(.GET, "http://httpbin.org/get", parameters: ["foo": "bar"])
 
-debugPrint(request)
+debugPrintln(request)
 ```
 
 #### Output (cURL)
@@ -599,7 +555,7 @@ let manager = Alamofire.Manager(configuration: configuration)
 #### Creating a Manager with Background Configuration
 
 ```swift
-let configuration = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier("com.example.app.background")
+let configuration = NSURLSessionConfiguration.backgroundSessionConfiguration("com.example.app.background")
 let manager = Alamofire.Manager(configuration: configuration)
 ```
 
@@ -648,22 +604,18 @@ For example, here's how a response handler using [Ono](https://github.com/mattt/
 extension Request {
     public static func XMLResponseSerializer() -> GenericResponseSerializer<ONOXMLDocument> {
         return GenericResponseSerializer { request, response, data in
-            guard let validData = data else {
-                let failureReason = "Data could not be serialized. Input data was nil."
-                let error = Error.errorWithCode(.DataSerializationFailed, failureReason: failureReason)
-                return .Failure(data, error)
+            if data == nil {
+                return (nil, nil)
             }
 
-            do {
-                let XML = try ONOXMLDocument(data: validData)
-                return .Success(XML)
-            } catch {
-                return .Failure(data, error as NSError)
-            }
+            var XMLSerializationError: NSError?
+            let XML = ONOXMLDocument(data: data!, error: &XMLSerializationError)
+
+            return (XML, XMLSerializationError)
         }
     }
 
-    public func responseXMLDocument(completionHandler: (NSURLRequest?, NSHTTPURLResponse?, Result<ONOXMLDocument>) -> Void) -> Self {
+    public func responseXMLDocument(completionHandler: (NSURLRequest, NSHTTPURLResponse?, ONOXMLDocument?, NSError?) -> Void) -> Self {
         return response(responseSerializer: Request.XMLResponseSerializer(), completionHandler: completionHandler)
     }
 }
@@ -674,30 +626,20 @@ extension Request {
 Generics can be used to provide automatic, type-safe response object serialization.
 
 ```swift
-public protocol ResponseObjectSerializable {
+@objc public protocol ResponseObjectSerializable {
     init?(response: NSHTTPURLResponse, representation: AnyObject)
 }
 
 extension Request {
-    public func responseObject<T: ResponseObjectSerializable>(completionHandler: (NSURLRequest?, NSHTTPURLResponse?, Result<T>) -> Void) -> Self {
+    public func responseObject<T: ResponseObjectSerializable>(completionHandler: (NSURLRequest, NSHTTPURLResponse?, T?, NSError?) -> Void) -> Self {
         let responseSerializer = GenericResponseSerializer<T> { request, response, data in
             let JSONResponseSerializer = Request.JSONResponseSerializer(options: .AllowFragments)
-            let result = JSONResponseSerializer.serializeResponse(request, response, data)
+            let (JSON: AnyObject?, serializationError) = JSONResponseSerializer.serializeResponse(request, response, data)
 
-            switch result {
-            case .Success(let value):
-                if let
-                    response = response,
-                    responseObject = T(response: response, representation: value)
-                {
-                    return .Success(responseObject)
-                } else {
-                    let failureReason = "JSON could not be serialized into response object: \(value)"
-                    let error = Error.errorWithCode(.JSONSerializationFailed, failureReason: failureReason)
-                    return .Failure(data, error)
-                }
-            case .Failure(let data, let error):
-                return .Failure(data, error)
+            if let response = response, JSON: AnyObject = JSON {
+                return (T(response: response, representation: JSON), nil)
+            } else {
+                return (nil, serializationError)
             }
         }
 
@@ -711,7 +653,7 @@ final class User: ResponseObjectSerializable {
     let username: String
     let name: String
 
-    init?(response: NSHTTPURLResponse, representation: AnyObject) {
+    @objc required init?(response: NSHTTPURLResponse, representation: AnyObject) {
         self.username = response.URL!.lastPathComponent!
         self.name = representation.valueForKeyPath("name") as! String
     }
@@ -720,35 +662,28 @@ final class User: ResponseObjectSerializable {
 
 ```swift
 Alamofire.request(.GET, "http://example.com/users/mattt")
-         .responseObject { (_, _, result: Result<User>) in
-             debugPrint(result)
+         .responseObject { (_, _, user: User?, _) in
+             println(user)
          }
 ```
 
 The same approach can also be used to handle endpoints that return a representation of a collection of objects:
 
 ```swift
-public protocol ResponseCollectionSerializable {
-    static func collection(response response: NSHTTPURLResponse, representation: AnyObject) -> [Self]
+@objc public protocol ResponseCollectionSerializable {
+    static func collection(#response: NSHTTPURLResponse, representation: AnyObject) -> [Self]
 }
 
 extension Alamofire.Request {
-    public func responseCollection<T: ResponseCollectionSerializable>(completionHandler: (NSURLRequest?, NSHTTPURLResponse?, Result<[T]>) -> Void) -> Self {
+    public func responseCollection<T: ResponseCollectionSerializable>(completionHandler: (NSURLRequest, NSHTTPURLResponse?, [T]?, NSError?) -> Void) -> Self {
         let responseSerializer = GenericResponseSerializer<[T]> { request, response, data in
             let JSONSerializer = Request.JSONResponseSerializer(options: .AllowFragments)
-            let result = JSONSerializer.serializeResponse(request, response, data)
+            let (JSON: AnyObject?, serializationError) = JSONSerializer.serializeResponse(request, response, data)
 
-            switch result {
-            case .Success(let value):
-                if let response = response {
-                    return .Success(T.collection(response: response, representation: value))
-                } else {
-                    let failureReason = "Response collection could not be serialized due to nil response"
-                    let error = Error.errorWithCode(.JSONSerializationFailed, failureReason: failureReason)
-                    return .Failure(data, error)
-                }
-            case .Failure(let data, let error):
-                return .Failure(data, error)
+            if let response = response, JSON: AnyObject = JSON {
+                return (T.collection(response: response, representation: JSON), nil)
+            } else {
+                return (nil, serializationError)
             }
         }
 
@@ -758,16 +693,16 @@ extension Alamofire.Request {
 ```
 
 ```swift
-final class User: ResponseObjectSerializable, ResponseCollectionSerializable {
+@objc final class User: ResponseObjectSerializable, ResponseCollectionSerializable {
     let username: String
     let name: String
 
-    init?(response: NSHTTPURLResponse, representation: AnyObject) {
+    required init?(response: NSHTTPURLResponse, representation: AnyObject) {
         self.username = response.URL!.lastPathComponent!
         self.name = representation.valueForKeyPath("name") as! String
     }
 
-    static func collection(response response: NSHTTPURLResponse, representation: AnyObject) -> [User] {
+    static func collection(#response: NSHTTPURLResponse, representation: AnyObject) -> [User] {
         var users: [User] = []
 
         if let representation = representation as? [[String: AnyObject]] {
@@ -785,8 +720,8 @@ final class User: ResponseObjectSerializable, ResponseCollectionSerializable {
 
 ```swift
 Alamofire.request(.GET, "http://example.com/users")
-         .responseCollection { (_, _, result: Result<[User]>) in
-             debugPrint(result)
+         .responseCollection { (_, _, users: [User]?, _) in
+             println(users)
          }
 ```
 
@@ -829,7 +764,7 @@ Alamofire.request(.GET, user) // http://example.com/users/mattt
 
 ### URLRequestConvertible
 
-Types adopting the `URLRequestConvertible` protocol can be used to construct URL requests. `NSURLRequest` conforms to `URLRequestConvertible` by default, allowing it to be passed into `request`, `upload`, and `download` methods directly (this is the recommended way to specify custom HTTP body for individual requests):
+Types adopting the `URLRequestConvertible` protocol can be used to construct URL requests. `NSURLRequest` conforms to `URLRequestConvertible` by default, allowing it to be passed into `request`, `upload`, and `download` methods directly (this is the recommended way to specify custom HTTP header fields or HTTP body for individual requests):
 
 ```swift
 let URL = NSURL(string: "http://httpbin.org/post")!
@@ -837,13 +772,8 @@ let mutableURLRequest = NSMutableURLRequest(URL: URL)
 mutableURLRequest.HTTPMethod = "POST"
 
 let parameters = ["foo": "bar"]
-
-do {
-    mutableURLRequest.HTTPBody = try NSJSONSerialization.dataWithJSONObject(parameters, options: NSJSONWritingOptions())
-} catch {
-    // No-op
-}
-
+var JSONSerializationError: NSError? = nil
+mutableURLRequest.HTTPBody = NSJSONSerialization.dataWithJSONObject(parameters, options: nil, error: &JSONSerializationError)
 mutableURLRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
 Alamofire.request(mutableURLRequest)
@@ -862,8 +792,8 @@ enum Router: URLRequestConvertible {
 
     // MARK: URLRequestConvertible
 
-    var URLRequest: NSMutableURLRequest {
-        let result: (path: String, parameters: [String: AnyObject]) = {
+    var URLRequest: NSURLRequest {
+        let (path: String, parameters: [String: AnyObject]?) = {
             switch self {
             case .Search(let query, let page) where page > 1:
                 return ("/search", ["q": query, "offset": Router.perPage * page])
@@ -873,10 +803,10 @@ enum Router: URLRequestConvertible {
         }()
 
         let URL = NSURL(string: Router.baseURLString)!
-        let URLRequest = NSURLRequest(URL: URL.URLByAppendingPathComponent(result.path))
+        let URLRequest = NSURLRequest(URL: URL.URLByAppendingPathComponent(path))
         let encoding = Alamofire.ParameterEncoding.URL
 
-        return encoding.encode(URLRequest, parameters: result.parameters).0
+        return encoding.encode(URLRequest, parameters: parameters).0
     }
 }
 ```
@@ -925,7 +855,7 @@ enum Router: URLRequestConvertible {
 
     // MARK: URLRequestConvertible
 
-    var URLRequest: NSMutableURLRequest {
+    var URLRequest: NSURLRequest {
         let URL = NSURL(string: Router.baseURLString)!
         let mutableURLRequest = NSMutableURLRequest(URL: URL.URLByAppendingPathComponent(path))
         mutableURLRequest.HTTPMethod = method.rawValue
@@ -994,8 +924,6 @@ let manager = Manager(
 )
 ```
 
-> Make sure to keep a reference to the new `Manager` instance, otherwise your requests will all get cancelled when your `manager` is deallocated.
-
 These server trust policies will result in the following behavior:
 
 * `test.example.com` will always use certificate pinning with certificate chain and host validation enabled thus requiring the following criteria to be met to allow the TLS handshake to succeed:
@@ -1005,59 +933,30 @@ These server trust policies will result in the following behavior:
 * `insecure.expired-apis.com` will never evaluate the certificate chain and will always allow the TLS handshake to succeed.
 * All other hosts will use the default evaluation provided by Apple.
 
-##### Subclassing Server Trust Policy Manager
-
-If you find yourself needing more flexible server trust policy matching behavior (i.e. wildcarded domains), then subclass the `ServerTrustPolicyManager` and override the `serverTrustPolicyForHost` method with your own custom implementation.
-
-```swift
-class CustomServerTrustPolicyManager: ServerTrustPolicyManager {
-    override func serverTrustPolicyForHost(host: String) -> ServerTrustPolicy? {
-        var policy: ServerTrustPolicy?
-
-        // Implement your custom domain matching behavior...
-
-        return policy
-    }
-}
-```
-
-#### Validating the Host
-
-The `.PerformDefaultEvaluation`, `.PinCertificates` and `.PinPublicKeys` server trust policies all take a `validateHost` parameter. Setting the value to `true` will cause the server trust evaluation to verify that hostname in the certificate matches the hostname of the challenge. If they do not match, evaluation will fail. A `validateHost` value of `false` will still evaluate the full certificate chain, but will not validate the hostname of the leaf certificate.
-
-> It is recommended that `validateHost` always be set to `true` in production environments.
-
-#### Validating the Certificate Chain
-
-Pinning certificates and public keys both have the option of validating the certificate chain using the `validateCertificateChain` parameter. By setting this value to `true`, the full certificate chain will be evaluated in addition to performing a byte equality check against the pinned certficates or public keys. A value of `false` will skip the certificate chain validation, but will still perform the byte equality check.
-
-There are several cases where it may make sense to disable certificate chain validation. The most common use cases for disabling validation are self-signed and expired certificates. The evaluation would always fail in both of these cases, but the byte equality check will still ensure you are receiving the certificate you expect from the server.
-
-> It is recommended that `validateCertificateChain` always be set to `true` in production environments.
-
----
-
-## Component Libraries
-
-In order to keep Alamofire focused specifically on core networking implementations, additional component libraries have been created by the [Alamofire Software Foundation](https://github.com/Alamofire/Foundation) to bring additional functionality to the Alamofire ecosystem.
-
-* [AlamofireImage](https://github.com/Alamofire/AlamofireImage) - An image library including image response serializers, `UIImage` and `UIImageView` extensions, custom image filters, an auto-purging in-memory cache and a priority-based image downloading system.
-
-## Open Rdars
-
-The following rdars have some affect on the current implementation of Alamofire.
-
-* [rdar://22024442](http://www.openradar.me/radar?id=6082025006039040) - Array of [SecCertificate] crashing Swift 2.0 compiler in optimized builds
-* [rdar://21349340](http://www.openradar.me/radar?id=5517037090635776) - Compiler throwing warning due to toll-free bridging issue in test case
-* [rdar://22307360](http://www.openradar.me/radar?id=4895563208196096) - Swift #available check not working properly with min deployment target
+* * *
 
 ## FAQ
+
+### When should I use Alamofire?
+
+If you're starting a new project in Swift, and want to take full advantage of its conventions and language features, Alamofire is a great choice. Although not as fully-featured as AFNetworking, Alamofire is much nicer to work with, and should satisfy the vast majority of networking use cases.
+
+> It's important to note that two libraries aren't mutually exclusive: AFNetworking and Alamofire can peacefully exist in the same code base.
+
+### When should I use AFNetworking?
+
+AFNetworking remains the premiere networking library available for OS X and iOS, and can easily be used in Swift, just like any other Objective-C code. AFNetworking is stable and reliable, and isn't going anywhere.
+
+Use AFNetworking for any of the following:
+
+- UIKit extensions, such as asynchronously loading images to `UIImageView`
+- Network reachability monitoring, using `AFNetworkReachabilityManager`
 
 ### What's the origin of the name Alamofire?
 
 Alamofire is named after the [Alamo Fire flower](https://aggie-horticulture.tamu.edu/wildseed/alamofire.html), a hybrid variant of the Bluebonnet, the official state flower of Texas.
 
----
+* * *
 
 ## Credits
 

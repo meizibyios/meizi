@@ -10,12 +10,9 @@
 #import "ParallaxHeaderView.h"
 #import "StoryCommentCell.h"
 #import "meizi-swift.h"
-#import "CorePhotoBroswerVC/PhotoBroswerVC.h"
-#import <SDWebImage/UIImageView+WebCache.h>
-//#import "PicItem.swift"
 @interface StoryViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *mainTableView;
-@property  ParallaxHeaderView *headerView;
+
 @property (nonatomic) NSDictionary *story;
 @end
 
@@ -24,9 +21,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     // Load Dummy PlaceHolder Comments
     [self loadPlaceHolderComments];
-    
+
     // Set TableViewWidth to the storyCommentCell so that comment cell is layouts itself for all ios Devices
     [StoryCommentCell setTableViewWidth:self.mainTableView.frame.size.width];    
     
@@ -34,9 +32,9 @@
 
     
    
-//    [SDWebImageDownloader.sharedDownloader downloadImageWithURL: [[NSURL alloc ] initWithString:((PicItem*)_picItem).identify]
-//                                                        options:0
-//                                                       progress:^(NSInteger receivedSize, NSInteger expectedSize)
+    [SDWebImageDownloader.sharedDownloader downloadImageWithURL: [[NSURL alloc ] initWithString:self.imageUrl]
+                                                        options:0
+                                                       progress:^(NSInteger receivedSize, NSInteger expectedSize)
      {
          // progression tracking code
      }
@@ -45,13 +43,14 @@
          if (image && finished)
          {
              // do something with image
-             _headerView = [ParallaxHeaderView parallaxHeaderViewWithImage:image forSize:CGSizeMake(self.mainTableView.frame.size.width, 300)];
-             _headerView.headerTitleLabel.text = self.story[@"story"];
-             [self.mainTableView setTableHeaderView:_headerView];
+             ParallaxHeaderView *headerView = [ParallaxHeaderView parallaxHeaderViewWithImage:image forSize:CGSizeMake(self.mainTableView.frame.size.width, 300)];
+             headerView.headerTitleLabel.text = self.story[@"story"];
+             [self.mainTableView setTableHeaderView:headerView];
              UIGestureRecognizer *recognizer=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showImageClick)];
-             [_headerView addGestureRecognizer:(recognizer)];
+             [headerView addGestureRecognizer:(recognizer)];
          }
-     };
+     }];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -143,46 +142,9 @@
 -(void) showImageClick
 {
 //    PhotoBrowser *photoBrowser=[[PhotoBrowser alloc] init];
-//
-//    [Swift2OC showHost:( [((PicItem*)_picItem) getPicUrl1920_1200]) image:(nil) fromView:(_headerView) fromVC:(self)];
-    [self networkImageShow];
-//    
+//   Swift2OC showHost:(NSString * __nonnull) image:(UIImage * __nonnull) fromView:(UIView * __nonnull) fromVC:(UIViewController * __nonnull)
 }
 
--(void)networkImageShow{
-//    
-//    [PhotoBroswerVC show:self type:PhotoBroswerVCTypeModal index:<#(NSUInteger)#> photoModelBlock:<#^NSArray *(void)photoModelBlock#>]
-    [PhotoBroswerVC show:self type:PhotoBroswerVCTypeModal index:2 photoModelBlock:^NSArray *{
-        
-        
-        NSArray *networkImages=@[
-                                 @"http://www.fevte.com/data/attachment/forum/day_110425/110425102470ac33f571bc1c88.jpg",
-                                 @"http://www.netbian.com/d/file/20150505/5a760278eb985d8da2455e3334ad0c0f.jpg",
-                                 @"http://www.netbian.com/d/file/20141006/e9d6f04046d483843d353d7a301d36f8.jpg",
-                                 @"http://www.netbian.com/d/file/20130906/134dca4108f3f0ed10a4cc3f78848856.jpg",
-                                 @"http://www.netbian.com/d/file/20121111/a03b9adb18a982f6a49aa7bfa7b82371.jpg",
-                                 @"http://www.netbian.com/d/file/20130421/e0dabeee4e1e62fe114799bc7e4ccd66.jpg",
-                                 @"http://www.netbian.com/d/file/20121012/c890c1da17bb5b4291e9733fad8efb42.jpg",
-                                 @"http://www.netbian.com/d/file/20150318/c5c68492a4d6998229d1b6068c77951e.jpg0"
-                                 ];
-        
-        NSMutableArray *modelsM = [NSMutableArray arrayWithCapacity:networkImages.count];
-        for (NSUInteger i = 0; i< networkImages.count; i++) {
-            
-            PhotoModel *pbModel=[[PhotoModel alloc] init];
-            pbModel.mid = i + 1;
-            pbModel.title = [NSString stringWithFormat:@"这是标题%@",@(i+1)];
-            pbModel.desc = [NSString stringWithFormat:@"我是一段很长的描述文字我是一段很长的描述文字我是一段很长的描述文字我是一段很长的描述文字我是一段很长的描述文字我是一段很长的描述文字%@",@(i+1)];
-            pbModel.image_HD_U = networkImages[i];
-            
-            [modelsM addObject:pbModel];
-        }
-        
-        return modelsM;
-        
-        
-    }];
-}
 
 
 

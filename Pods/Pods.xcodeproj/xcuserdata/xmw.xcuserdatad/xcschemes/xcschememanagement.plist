@@ -4,17 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>AFNetworking.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Alamofire.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>FDFullscreenPopGesture.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -24,17 +14,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>MKNetworkKit.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Reachability.xcscheme</key>
+		<key>PulsingHalo.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -52,37 +37,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>01EAFD93E03AF35C719D56F1F435E9D0</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>495B003D452A0D34513022D52B4E198B</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>5960D0F9F7371F9C54D7A01B133D4996</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>6A8947C025F8D0F4D7E879FEE6C2C1FA</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>8A64DC560F71D91357C4565BCC8CBB51</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>9666688CB41B38A9914616144C9C7A3E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>ACF43F8F0177F9003317D160CB65054E</key>
+		<key>AD3201DECCF6CC920B31BE51F0A42517</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -92,7 +52,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E6BB5899C6622B5C1BBCE7C478138F7B</key>
+		<key>C15513FE965416DC5364DD5B9B22C0F7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CCEE66AE8E021B55C8A0A7D2E6A8884B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E42D08A61764B0135557AF57193B5302</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -86,12 +86,8 @@ extension PhotoBrowser: UICollectionViewDataSource,UICollectionViewDelegate{
         photoModel.modelCell = itemCell
         
         itemCell.photoModel = photoModel
-        // 
-        if isShowCount
-        {
-            itemCell.countLabel.text = "\(indexPath.row + 1) / \(photoModels.count)"
-        }
-//
+        
+        itemCell.countLabel.text = "\(indexPath.row + 1) / \(photoModels.count)"
         
         if hideMsgForZoomAndDismissWithSingleTap && showType == .ZoomAndDismissWithSingleTap {itemCell.toggleDisplayBottomBar(true)}
         
