@@ -40,6 +40,7 @@ class GlobalVariables: NSObject {
         return plistPath
     }
     /**是否在审核期间***/
+    
     class func notInView()-> Bool
     {
         let comdate=NSDateComponents()
