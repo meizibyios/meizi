@@ -9,7 +9,7 @@
 #import "StoryViewController.h"
 #import "ParallaxHeaderView.h"
 #import "StoryCommentCell.h"
-#import "meizi-swift.h"
+#import "美图-swift.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
 //#import "PicItem.swift"
@@ -116,7 +116,7 @@
         
         
         NSArray *comments = @[
-                              @{kCommentKey: @"评论功能马上上线，妹子在这里等你哦！", kTimeKey : @"刚刚", kLikesCountKey : @"3"},
+                              @{kCommentKey: @"喜欢的图片向右滑动会添加到收藏，可以点击上面的图片查看和下载高清图片", kTimeKey : @"刚刚", kLikesCountKey : @"3"},
                               
                               ];
         

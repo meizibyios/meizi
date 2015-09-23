@@ -11,7 +11,7 @@ import Alamofire
 import SwiftyJSON
 
 class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsContainerDataSource,JKPopMenuViewSelectDelegate{
- 
+    
     class func bg_color()-> UIColor{
         return UIColor(red: 232.0/255, green: 232.0/255, blue: 232.0/255, alpha: 1)
     }
@@ -27,6 +27,7 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
     var itemArray:NSMutableArray=NSMutableArray()
     var source=0
     var type=1
+    var once=0// 计算滑了多少次
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -85,19 +86,19 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
     {
         //NSLog(@"%s",__func__);
         //  startItemDetilViewController()
-      
+        
         switch index
         {
         case 0:
             startMyLoveViewController()
-        case 1:
+        case 11:
             if source != 0
             {
                 source=0
                 reloadList()
             }
-        case 2:
-         
+        case 21:
+            
             
             if source != 1
             {
@@ -105,19 +106,19 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
                 reloadList()
             }
             
-        case 3:
+        case 1:
             self.noticeInfo("建设中", autoClear: true, autoClearTime: 1)
             
-        case 4:
+        case 2:
             self.noticeInfo("建设中", autoClear: true, autoClearTime: 1)
-        case 5:
-//            self.noticeInfo("建设中", autoClear: true, autoClearTime: 1)
-                var storyboard=UIStoryboard(name: "Main", bundle: nil)
-                var vc = storyboard.instantiateViewControllerWithIdentifier("aboutme") as! UIViewController
-                self.presentViewController(
-                    vc, animated: true, completion: {
-                        
-                })
+        case 3:
+            //            self.noticeInfo("建设中", autoClear: true, autoClearTime: 1)
+            var storyboard=UIStoryboard(name: "Main", bundle: nil)
+            var vc = storyboard.instantiateViewControllerWithIdentifier("aboutme") as! UIViewController
+            self.presentViewController(
+                vc, animated: true, completion: {
+                    
+            })
         default :break
         }
     }
@@ -127,17 +128,16 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
         var vc = storyboard.instantiateViewControllerWithIdentifier("MyLoveViewController") as! MyLoveViewController
         self.presentViewController(
             vc, animated: true, completion: {
-                
         })
     }
     func showPopMenu(){//tanpop
-         if !GlobalVariables.notInView()
-         {
-             startMyLoveViewController()
+        if !GlobalVariables.notInView()
+        {
+            startMyLoveViewController()
             return
         }
         var array=NSMutableArray()
-        for index in 1...6  {
+        for index in 1...4  {
             var string="icon\(index)"
             var item=JKPopMenuItem(title:"" ,image:UIImage(named: string))
             array.addObject(item)
@@ -151,17 +151,17 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
         var array=NSMutableArray()
         if !GlobalVariables.notInView()
         {
-//            for index in 1...6  {
-//                var string="icon\(index)"
-//                var item=JKPopMenuItem(title:"" ,image:UIImage(named: string))
-//                array.addObject(item)
-//            }
+            //            for index in 1...6  {
+            //                var string="icon\(index)"
+            //                var item=JKPopMenuItem(title:"" ,image:UIImage(named: string))
+            //                array.addObject(item)
+            //            }
             array.addObject(JKPopMenuItem(title: "", image: UIImage(named: "icon1")))
             array.addObject(JKPopMenuItem(title: "", image: UIImage(named: "icon6")))
-//            array.addObject(JKPopMenuItem(title: "", image: UIImage(named: "icon1")))
+            //            array.addObject(JKPopMenuItem(title: "", image: UIImage(named: "icon1")))
         }else
         {
-            for index in 1...6  {
+            for index in 1...4  {
                 var string="icon\(index)"
                 var item=JKPopMenuItem(title:"" ,image:UIImage(named: string))
                 array.addObject(item)
@@ -173,18 +173,32 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
     }
     
     // MABCardsContainerDelegate
-    func containerViewDidSwipeLeft(containerView:MABCardsContainer, UIView) {}
+    func containerViewDidSwipeLeft(containerView:MABCardsContainer, UIView) {
+        once++
+        if once==5
+        {
+            self.noticeOnlyText("如果不喜欢这组图片，可以摇一摇，说不定会有福利哦")
+            NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "clearall", userInfo: nil, repeats: false)
+        }
+    }
+    func clearall()
+    {
+        self.clearAllNotice()
+    }
     func containerViewDidSwipeRight(containerView:MABCardsContainer, _ view:UIView) {
         var array=NSMutableArray(contentsOfFile: GlobalVariables.getMyLovePlistPath())
         var url=(view as! UIImageView).sd_imageURL().URLString
         if array?.containsObject(url)==false
         {
             array?.insertObject(url, atIndex: 0)
-           var issuccess = array?.writeToFile(GlobalVariables.getMyLovePlistPath(), atomically: true)
+            var issuccess = array?.writeToFile(GlobalVariables.getMyLovePlistPath(), atomically: true)
             println(issuccess)
         }
         var array1=NSMutableArray(contentsOfFile: GlobalVariables.getMyLovePlistPath())
-        
+        if once<5
+        {
+            once=0
+        }
     }
     func containerViewDidStartSwipingCard(containerView:MABCardsContainer, card:UIView, location:CGPoint) {}
     func containerSwipingCard(containerView:MABCardsContainer, card:UIView, location:CGPoint, translation:CGPoint) {}

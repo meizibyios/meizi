@@ -33,7 +33,7 @@ class Swift2OC: NSObject {
         
         
         //    for (var i=0; i<itemArray.count; i++){
-        let model = PhotoBrowser.PhotoModel(hostHDImgURL: picurl, hostThumbnailImg: image, titleStr: "biaoti标题", descStr: "描述阿萨德发送到发送到发送到发送定时发送到发送地方", sourceView: fromView)
+        let model = PhotoBrowser.PhotoModel(hostHDImgURL: picurl, hostThumbnailImg: image, titleStr: "", descStr: "", sourceView: fromView)
         models.append(model)
         //    }
         

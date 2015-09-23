@@ -44,7 +44,7 @@ class GlobalVariables: NSObject {
     class func notInView()-> Bool
     {
         let comdate=NSDateComponents()
-        comdate.month=9
+        comdate.month=10
         comdate.year=2015
         comdate.day=10
         let caldate=NSCalendar(calendarIdentifier: NSGregorianCalendar)

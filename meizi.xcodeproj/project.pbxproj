@@ -1169,7 +1169,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
 				);
-				PRODUCT_NAME = meizi;
+				PRODUCT_NAME = "美图";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = CardsDemo/OCHeader.h;
 			};
@@ -1193,7 +1193,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
 				);
-				PRODUCT_NAME = meizi;
+				PRODUCT_NAME = "美图";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = CardsDemo/OCHeader.h;
 			};
