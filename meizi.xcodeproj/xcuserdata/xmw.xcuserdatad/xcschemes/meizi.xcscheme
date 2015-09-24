@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8E018D951A2A3D9B00BFBC40"
-               BuildableName = "meizi.app"
+               BuildableName = "&#x7f8e;&#x56fe;.app"
                BlueprintName = "meizi"
                ReferencedContainer = "container:meizi.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8E018D951A2A3D9B00BFBC40"
-            BuildableName = "meizi.app"
+            BuildableName = "&#x7f8e;&#x56fe;.app"
             BlueprintName = "meizi"
             ReferencedContainer = "container:meizi.xcodeproj">
          </BuildableReference>
@@ -53,7 +53,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8E018D951A2A3D9B00BFBC40"
-            BuildableName = "meizi.app"
+            BuildableName = "&#x7f8e;&#x56fe;.app"
             BlueprintName = "meizi"
             ReferencedContainer = "container:meizi.xcodeproj">
          </BuildableReference>
@@ -72,7 +72,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8E018D951A2A3D9B00BFBC40"
-            BuildableName = "meizi.app"
+            BuildableName = "&#x7f8e;&#x56fe;.app"
             BlueprintName = "meizi"
             ReferencedContainer = "container:meizi.xcodeproj">
          </BuildableReference>

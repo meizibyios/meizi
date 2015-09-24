@@ -44,6 +44,7 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
         self.swipeableView.delegate = self;
         addHaloLayer()
         getPicList()
+        
     }
     
     func addHaloLayer(){
@@ -302,7 +303,7 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
         }
         if !GlobalVariables.notInView()
         {
-            if (type==9||type==3)
+            if (type==9||type==3||type==6||type==7)
             {
                 type=2
                 source=0
