@@ -5,7 +5,7 @@
 //  Created by xiaomo on 15/8/27.
 //  Copyright (c) 2015年 Muhammad Bassio. All rights reserved.
 //
-
+//// 这可不是七牛  是apicloud
 #import "QiniuUtiloc.h"
 
 #import <CommonCrypto/CommonDigest.h>
@@ -31,14 +31,15 @@
 {
         NSString * xappkey =@"";
 
-        NSString * ID = @"A6995690932101";
+    
         NSString * appKey = @"E4F6C0DA-0BF8-F1F0-D3A2-49348C054EAF";
         NSDate * date = [[NSDate alloc]init];
         NSString * time = [NSString stringWithFormat:@"%ld",(NSInteger)([date timeIntervalSince1970]*1000)];
-        xappkey = [NSString stringWithFormat:@"%@.%@",[self SHA1encode:[NSString stringWithFormat:@"%@UZ%@UZ%@",ID,appKey,time]],time];
+        xappkey = [NSString stringWithFormat:@"%@.%@",[self SHA1encode:[NSString stringWithFormat:@"%@UZ%@UZ%@",APICLOUD_ID,appKey,time]],time];
     
     return xappkey;
 }
+
 
 +(UIImage *)getImageFromSD:(NSString *)key
 {

@@ -33,6 +33,8 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
         // Do any additional setup after loading the view, typically from a nib.
         self.view.backgroundColor = ViewController.bg_color()
         self.swipeableView = MABCardsContainer(frame: CGRectMake(20, 30, self.view.frame.width-40, self.view.frame.height-158))
+        LogInController.checkLogin()
+        QiniuUtil.inView()
         if GlobalVariables.notInView()
         {
             type=3

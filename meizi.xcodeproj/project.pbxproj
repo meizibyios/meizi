@@ -139,6 +139,7 @@
 		CEAC46261BA66F4A0059CD52 /* ItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEAC46171BA66F4A0059CD52 /* ItemCell.xib */; };
 		CEAC46271BA66F4A0059CD52 /* ShowImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAC46181BA66F4A0059CD52 /* ShowImageView.swift */; };
 		CEAF8C571B9FF05800641EB5 /* SwiftNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAF8C561B9FF05800641EB5 /* SwiftNotice.swift */; };
+		CED1F1EB1BB52CCB002F8559 /* LogInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED1F1EA1BB52CCB002F8559 /* LogInController.swift */; };
 		CED3471B1BA00A1700B3489E /* AboutMeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED3471A1BA00A1700B3489E /* AboutMeViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -319,6 +320,7 @@
 		CEAC46171BA66F4A0059CD52 /* ItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItemCell.xib; sourceTree = "<group>"; };
 		CEAC46181BA66F4A0059CD52 /* ShowImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowImageView.swift; sourceTree = "<group>"; };
 		CEAF8C561B9FF05800641EB5 /* SwiftNotice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftNotice.swift; sourceTree = "<group>"; };
+		CED1F1EA1BB52CCB002F8559 /* LogInController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInController.swift; sourceTree = "<group>"; };
 		CED3471A1BA00A1700B3489E /* AboutMeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutMeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -559,6 +561,7 @@
 			children = (
 				CD99F51A1B944494009F7917 /* MyLoveViewController.swift */,
 				CED3471A1BA00A1700B3489E /* AboutMeViewController.swift */,
+				CED1F1EA1BB52CCB002F8559 /* LogInController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1045,6 +1048,7 @@
 				CEAC45DB1BA66F410059CD52 /* Log.swift in Sources */,
 				CEAC45E01BA66F410059CD52 /* UIButton+Haneke.swift in Sources */,
 				CD99F51B1B944494009F7917 /* MyLoveViewController.swift in Sources */,
+				CED1F1EB1BB52CCB002F8559 /* LogInController.swift in Sources */,
 				CDD21F0C1B8D848600F0F6C0 /* JKPopMenuItem.m in Sources */,
 				CEAC45F21BA66F410059CD52 /* NVActivityIndicatorAnimationBallSpinFadeLoader.swift in Sources */,
 				CEAC45FF1BA66F410059CD52 /* NVActivityIndicatorAnimationSquareSpin.swift in Sources */,

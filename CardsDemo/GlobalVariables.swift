@@ -34,7 +34,6 @@ class GlobalVariables: NSObject {
         if dic==nil{
             let arraytemp=NSDictionary()
             arraytemp.writeToFile(plistPath, atomically: true)
-            
         }
         
         return plistPath
