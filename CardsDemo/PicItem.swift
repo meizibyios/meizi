@@ -26,7 +26,7 @@ class PicItem :NSObject{
         self.picdescription=description
     }
     class func loveBizhiUrl21920_1200 (url :String)->String{
-        return url.stringByReplacingOccurrencesOfString("480", withString: "1920", options: nil, range: nil).stringByReplacingOccurrencesOfString("300", withString: "1200", options: nil, range: nil)
+        return url.stringByReplacingOccurrencesOfString("480", withString: "1920", options: [], range: nil).stringByReplacingOccurrencesOfString("300", withString: "1200", options: [], range: nil)
     }
     func getPicUrl1920_1200()->String
     {

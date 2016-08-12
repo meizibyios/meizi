@@ -50,7 +50,7 @@ extension PhotoBrowser{
     /** 保存 */
     func saveAction(){
         
-        if contains(photoArchiverArr, page) {showHUD("已经保存", autoDismiss: 2); return}
+        if photoArchiverArr.contains(page) {showHUD("已经保存", autoDismiss: 2); return}
         
         let itemCell = collectionView.cellForItemAtIndexPath(NSIndexPath(forItem: page, inSection: 0)) as! ItemCell
         

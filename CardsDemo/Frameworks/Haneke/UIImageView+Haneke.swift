@@ -72,7 +72,7 @@ public extension UIImageView {
             if let fetcher = fetcher {
                 wrapper = ObjectWrapper(value: fetcher)
             }
-            objc_setAssociatedObject(self, &HanekeGlobals.UIKit.SetImageFetcherKey, wrapper, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+            objc_setAssociatedObject(self, &HanekeGlobals.UIKit.SetImageFetcherKey, wrapper, UInt(objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC))
         }
     }
     
@@ -131,7 +131,7 @@ public extension UIImageView {
     func hnk_shouldCancelForKey(key:String) -> Bool {
         if self.hnk_fetcher?.key == key { return false }
         
-        Log.debug("Cancelled set image for \(key.lastPathComponent)")
+        Log.debug("Cancelled set image for \((key as NSString).lastPathComponent)")
         return true
     }
     

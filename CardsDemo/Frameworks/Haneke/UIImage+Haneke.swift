@@ -44,7 +44,7 @@ extension UIImage {
         switch (alphaInfo) {
         case .None:
             bitmapInfo &= ~CGBitmapInfo.AlphaInfoMask
-            bitmapInfo |= CGBitmapInfo(CGImageAlphaInfo.NoneSkipFirst.rawValue)
+            bitmapInfo |= CGBitmapInfo(rawValue: CGImageAlphaInfo.NoneSkipFirst.rawValue)
         case .PremultipliedFirst, .PremultipliedLast, .NoneSkipFirst, .NoneSkipLast:
             break
         case .Only, .Last, .First: // Unsupported

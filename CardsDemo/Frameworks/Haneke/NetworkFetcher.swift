@@ -30,7 +30,7 @@ public class NetworkFetcher<T : DataConvertible> : Fetcher<T> {
     public init(URL : NSURL) {
         self.URL = URL
 
-        let key =  URL.absoluteString!
+        let key =  URL.absoluteString
         super.init(key: key)
     }
     
@@ -68,7 +68,7 @@ public class NetworkFetcher<T : DataConvertible> : Fetcher<T> {
         if let error = error {
             if (error.domain == NSURLErrorDomain && error.code == NSURLErrorCancelled) { return }
             
-            Log.debug("Request \(URL.absoluteString!) failed", error)
+            Log.debug("Request \(URL.absoluteString) failed", error)
             dispatch_async(dispatch_get_main_queue(), { fail(error) })
             return
         }
@@ -76,7 +76,7 @@ public class NetworkFetcher<T : DataConvertible> : Fetcher<T> {
         // Intentionally avoiding `if let` to continue in golden path style.
         let httpResponse : NSHTTPURLResponse! = response as? NSHTTPURLResponse
         if httpResponse == nil {
-            Log.debug("Request \(URL.absoluteString!) received unknown response \(response)")
+            Log.debug("Request \(URL.absoluteString) received unknown response \(response)")
             return
         }
         
@@ -96,7 +96,7 @@ public class NetworkFetcher<T : DataConvertible> : Fetcher<T> {
         let value : T.Result? = T.convertFromData(data)
         if value == nil {
             let localizedFormat = NSLocalizedString("Failed to convert value from data at URL %@", comment: "Error description")
-            let description = String(format:localizedFormat, URL.absoluteString!)
+            let description = String(format:localizedFormat, URL.absoluteString)
             self.failWithCode(.InvalidData, localizedDescription: description, failure: fail)
             return
         }

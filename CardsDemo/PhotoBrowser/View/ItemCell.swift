@@ -180,7 +180,7 @@ extension ItemCell: UIScrollViewDelegate{
                 
                 self.cache.fetch(URL: NSURL(string: self.photoModel.hostHDImgURL)!, failure: {fail in
                     
-                    println("失败\(fail)")
+                    print("失败\(fail)")
                     
                     }, success: {[unowned self] img in
                     

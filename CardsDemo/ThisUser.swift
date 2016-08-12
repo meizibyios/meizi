@@ -32,7 +32,7 @@ class ThisUser: NSObject {
     }
     //***dic 2 object**//
     class func getUserFromDic(dic:NSDictionary)->ThisUser{
-        var user = ThisUser()
+        let user = ThisUser()
         var temp = dic.objectForKey("userNmae") as!String
         if !temp.isEmpty
         {

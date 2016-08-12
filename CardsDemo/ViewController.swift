@@ -18,7 +18,7 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
     class func main_color()->UIColor {
         return UIColor(red: 118.0/255, green: 174.0/255, blue: 51/255, alpha: 1)
     }
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -46,7 +46,7 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
     }
     
     func addHaloLayer(){
-        var btn = UIButton(frame: CGRectMake(self.view.frame.width/2-50, self.swipeableView.frame.height+30, 100, 100))
+        let btn = UIButton(frame: CGRectMake(self.view.frame.width/2-50, self.swipeableView.frame.height+30, 100, 100))
         btn .setTitle("+", forState: UIControlState.Normal)
         btn.titleLabel?.font=UIFont .systemFontOfSize(18)
         //btn.backgroundColor = UIColor.blackColor()
@@ -71,14 +71,14 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
     func reload() {
         self.swipeableView.discardAllSwipeableViews()
         self.swipeableView.loadNextSwipeableViewsIfNeeded(true)
-        println(QiniuUtiloc.getXAPICloudAppKey())
+        print(QiniuUtiloc.getXAPICloudAppKey())
     }
     
     
     func generateColor() -> UIColor {
-        var randomRed:CGFloat = CGFloat(drand48())
-        var randomGreen:CGFloat = CGFloat(drand48())
-        var randomBlue:CGFloat = CGFloat(drand48())
+        let randomRed:CGFloat = CGFloat(drand48())
+        let randomGreen:CGFloat = CGFloat(drand48())
+        let randomBlue:CGFloat = CGFloat(drand48())
         return UIColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: 1.0)
     }
     func popMenuViewSelectIndex(index:NSInteger)
@@ -112,8 +112,8 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
             self.noticeInfo("建设中", autoClear: true, autoClearTime: 1)
         case 5:
 //            self.noticeInfo("建设中", autoClear: true, autoClearTime: 1)
-                var storyboard=UIStoryboard(name: "Main", bundle: nil)
-                var vc = storyboard.instantiateViewControllerWithIdentifier("aboutme") as! UIViewController
+                let storyboard=UIStoryboard(name: "Main", bundle: nil)
+                let vc = storyboard.instantiateViewControllerWithIdentifier("aboutme") 
                 self.presentViewController(
                     vc, animated: true, completion: {
                         
@@ -123,8 +123,8 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
     }
     
     func startMyLoveViewController(){// 我喜欢的 列表
-        var storyboard=UIStoryboard(name: "Main", bundle: nil)
-        var vc = storyboard.instantiateViewControllerWithIdentifier("MyLoveViewController") as! MyLoveViewController
+        let storyboard=UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewControllerWithIdentifier("MyLoveViewController") as! MyLoveViewController
         self.presentViewController(
             vc, animated: true, completion: {
                 
@@ -136,19 +136,19 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
              startMyLoveViewController()
             return
         }
-        var array=NSMutableArray()
+        let array=NSMutableArray()
         for index in 1...6  {
-            var string="icon\(index)"
-            var item=JKPopMenuItem(title:"" ,image:UIImage(named: string))
+            let string="icon\(index)"
+            let item=JKPopMenuItem(title:"" ,image:UIImage(named: string))
             array.addObject(item)
         }
-        var jkpop=JKPopMenuView(items:array as [AnyObject])
+        let jkpop=JKPopMenuView(items:array as [AnyObject])
         jkpop.delegate=self
         jkpop.show()
     }
     
     func showPopMenuT(){//tanpop
-        var array=NSMutableArray()
+        let array=NSMutableArray()
         if !GlobalVariables.notInView()
         {
 //            for index in 1...6  {
@@ -162,18 +162,18 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
         }else
         {
             for index in 1...6  {
-                var string="icon\(index)"
-                var item=JKPopMenuItem(title:"" ,image:UIImage(named: string))
+                let string="icon\(index)"
+                let item=JKPopMenuItem(title:"" ,image:UIImage(named: string))
                 array.addObject(item)
             }
         }
-        var jkpop=JKPopMenuView(items:array as [AnyObject])
+        let jkpop=JKPopMenuView(items:array as [AnyObject])
         jkpop.delegate=self
         jkpop.show()
     }
     
     // MABCardsContainerDelegate
-    func containerViewDidSwipeLeft(containerView:MABCardsContainer, UIView) {}
+    func containerViewDidSwipeLeft(containerView:MABCardsContainer, _: UIView) {}
     func containerViewDidSwipeRight(containerView:MABCardsContainer, _ view:UIView) {
         var array=NSMutableArray(contentsOfFile: GlobalVariables.getMyLovePlistPath())
         var url=(view as! UIImageView).sd_imageURL().URLString
@@ -181,7 +181,7 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
         {
             array?.insertObject(url, atIndex: 0)
            var issuccess = array?.writeToFile(GlobalVariables.getMyLovePlistPath(), atomically: true)
-            println(issuccess)
+            print(issuccess)
         }
         var array1=NSMutableArray(contentsOfFile: GlobalVariables.getMyLovePlistPath())
         
@@ -199,17 +199,17 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
             var rect = CGRect(x: 0, y: 0, width:self.view.frame.width-40, height: self.view.frame.height-171)
             if source==0
             {rect.size.height=(rect.width)*30/48}
-            var imageView=UIImageView(frame: rect)
+            let imageView=UIImageView(frame: rect)
             imageView.backgroundColor=UIColor.whiteColor()
             let item=itemArray.objectAtIndex(0) as! PicItem
             itemArray.removeObjectAtIndex(0)
             
             imageView.contentMode=UIViewContentMode.ScaleAspectFit
             imageView.sd_setImageWithURL(NSURL(string:item.identify), completed: { (image, err, _, _) -> Void in
-                println(image)
+                print(image)
                 
                 if !(err==nil){
-                    println(err)
+                    print(err)
                 }else{
                     //                    imageView.frame=image.
                 }
@@ -249,7 +249,7 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
         Alamofire.request(.GET, "http://apis.baidu.com/txapi/mvtp/meinv?num=40", headers: headers,parameters:parameters
             )
             .responseJSON { _, _, Json, _ in
-                println(Json)
+                print(Json)
                 
                 let json=SwiftyJSON.JSON(Json!)
                 
@@ -266,7 +266,7 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
             .responseJSON { _, _, jSON, _ in
                 let json=SwiftyJSON.JSON(jSON!)
                 
-                for(index: String,subjson: SwiftyJSON.JSON) in json["data"]{
+                for(index, subjson): (String, SwiftyJSON.JSON) in json["data"]{
                     self.itemArray.addObject(PicItem(identifyorurl:subjson["image"]["original"].string! ))
                 }
                 self.reload()
@@ -274,10 +274,10 @@ class ViewController: UIViewController, MABCardsContainerDelegate, MABCardsConta
         pagenum[type]++
     }
     
-    override func motionBegan(motion: UIEventSubtype, withEvent event: UIEvent) {
+    override func motionBegan(motion: UIEventSubtype, withEvent event: UIEvent?) {
         
     }
-    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent) {
+    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
         type=Int(arc4random_uniform(10))+1
         if type==9// 9的位置是空的  爱壁纸里边  3 是魅力女性
         {

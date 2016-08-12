@@ -70,7 +70,7 @@ public extension UIButton {
             if let fetcher = fetcher {
                 wrapper = ObjectWrapper(value: fetcher)
             }
-            objc_setAssociatedObject(self, &HanekeGlobals.UIKit.SetImageFetcherKey, wrapper, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+            objc_setAssociatedObject(self, &HanekeGlobals.UIKit.SetImageFetcherKey, wrapper, UInt(objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC))
         }
     }
     
@@ -117,7 +117,7 @@ public extension UIButton {
     func hnk_shouldCancelImageForKey(key:String) -> Bool {
         if self.hnk_imageFetcher?.key == key { return false }
         
-        Log.debug("Cancelled set image for \(key.lastPathComponent)")
+        Log.debug("Cancelled set image for \((key as NSString).lastPathComponent)")
         return true
     }
     
@@ -180,7 +180,7 @@ public extension UIButton {
             if let fetcher = fetcher {
                 wrapper = ObjectWrapper(value: fetcher)
             }
-            objc_setAssociatedObject(self, &HanekeGlobals.UIKit.SetBackgroundImageFetcherKey, wrapper, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+            objc_setAssociatedObject(self, &HanekeGlobals.UIKit.SetBackgroundImageFetcherKey, wrapper, UInt(objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC))
         }
     }
     
@@ -226,7 +226,7 @@ public extension UIButton {
     func hnk_shouldCancelBackgroundImageForKey(key:String) -> Bool {
         if self.hnk_backgroundImageFetcher?.key == key { return false }
         
-        Log.debug("Cancelled set background image for \(key.lastPathComponent)")
+        Log.debug("Cancelled set background image for \((key as NSString).lastPathComponent)")
         return true
     }
 }

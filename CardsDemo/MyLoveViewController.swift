@@ -60,8 +60,8 @@ class MyLoveViewController: UIViewController,UITableViewDataSource,UITableViewDe
         
 //        if cell.
 //        {
-          var  cell=MyLoveViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "MyLoveViewCellhead") as MyLoveViewCell
-            var imageview=UIImageView()
+          let  cell=MyLoveViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "MyLoveViewCellhead") as MyLoveViewCell
+            let imageview=UIImageView()
             var rect=self.view.frame
             rect.size.height=tableView.rowHeight
             imageview.frame=rect
@@ -90,7 +90,7 @@ class MyLoveViewController: UIViewController,UITableViewDataSource,UITableViewDe
         if editingStyle  == UITableViewCellEditingStyle.Delete
         {
             itemArray.removeObjectAtIndex(indexPath.row)
-            var array=NSMutableArray()
+            let array=NSMutableArray()
             array.addObject(indexPath)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Bottom)
             itemArray.writeToFile(GlobalVariables.getMyLovePlistPath(), atomically: true)

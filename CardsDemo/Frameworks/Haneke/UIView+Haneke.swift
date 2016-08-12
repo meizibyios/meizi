@@ -19,7 +19,7 @@ public extension HanekeGlobals {
                 return format
             }
             
-            var format = Format<UIImage>(name: name,
+            let format = Format<UIImage>(name: name,
                 diskCapacity: HanekeGlobals.UIKit.DefaultFormat.DiskCapacity) {
                     let resizer = ImageResizer(size:size,
                         scaleMode: scaleMode,
@@ -28,7 +28,7 @@ public extension HanekeGlobals {
                     return resizer.resizeImage($0)
             }
             format.convertToData = {(image : UIImage) -> NSData in
-                image.hnk_data(compressionQuality: HanekeGlobals.UIKit.DefaultFormat.CompressionQuality)
+                image.hnk_data(HanekeGlobals.UIKit.DefaultFormat.CompressionQuality)
             }
             return format
         }
